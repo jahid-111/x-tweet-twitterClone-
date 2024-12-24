@@ -1,4 +1,3 @@
-import React from "react";
 import { exploreRoutes } from "../../utils/userIconStaticData";
 import { Link, useLocation } from "react-router-dom"; // Importing Link and useLocation
 
@@ -6,8 +5,8 @@ const NavigationExplore = () => {
   const { pathname } = useLocation(); // Using useLocation to get the current pathname
 
   return (
-    <nav aria-label="Explore categories" className="border-gray-700 mt-3">
-      <ul className="flex gap-3 justify-center items-center overflow-x-auto w-full">
+    <nav aria-label="Explore categories" className="border-gray-700 mt-1">
+      <ul className="flex justify-center items-center overflow-x-auto w-full">
         {exploreRoutes.map((route) => {
           const formattedRoute = route
             .trim()
@@ -22,10 +21,10 @@ const NavigationExplore = () => {
           return (
             <li key={route} className="w-full">
               <Link
-                className={`block text-center py-2 ${
+                className={`block text-center py-3 ${
                   isActive
-                    ? "border-b-4 border-primary hover:bg-linkColor"
-                    : "hover:border-b-4 hover:border-primary hover:bg-linkColor"
+                    ? "border-b-4 rounded-sm border-primary hover:bg-linkColor"
+                    : "hover:bg-linkColor"
                 }`}
                 to={`/explore/${encodeURIComponent(formattedRoute)}`}
               >

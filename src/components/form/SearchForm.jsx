@@ -1,5 +1,3 @@
-import React from "react";
-
 const SearchForm = () => {
   return (
     <div className="w-full bg-opacity-80 backdrop-blur-sm ">

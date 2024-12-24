@@ -6,7 +6,7 @@ import SigninPage from "../page/public-page/SigninPage";
 import SignupPage from "../page/public-page/SignupPage";
 
 const PublicRouter = () => {
-  const isAuthenticated = false; // Replace with your actual authentication logic
+  const isAuthenticated = true; // Replace with your actual authentication logic
 
   if (isAuthenticated) {
     // Redirect authenticated users to the home page
