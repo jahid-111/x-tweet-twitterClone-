@@ -2,7 +2,7 @@ import PublicRouter from "./PublicRouter"; // Public routes
 import AppRouter from "./AppRouter";
 
 const AuthRouter = () => {
-  const isAuthenticated = true;
+  const isAuthenticated = false;
 
   return isAuthenticated ? <AppRouter /> : <PublicRouter />;
 };

@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import { useState } from "react";
+import { Router } from "react-router-dom";
 
-const SigninFrom = () => {
+const LoginForm = () => {
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
 
@@ -29,7 +30,7 @@ const SigninFrom = () => {
       // console.log(data)
       if (response.status === 200) {
         setLoading(null);
-        router.push("/");
+        Router.push("/");
         console.log(data);
       } else if (response.status === 401) {
         setMessage(data.message);
@@ -90,4 +91,4 @@ const SigninFrom = () => {
   );
 };
 
-export default SigninFrom;
+export default LoginForm;
