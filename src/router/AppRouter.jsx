@@ -1,4 +1,3 @@
-import React from "react";
 import { Routes, Route } from "react-router-dom";
 import RootLayOut from "../layout/RootLayout";
 import Notification from "../page/Notification";

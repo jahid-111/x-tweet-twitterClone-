@@ -6,12 +6,15 @@ import PostTweet from "../components/tweet-post/PostTweet";
 import TrendingCard from "../components/SampleToLoad/TrendingCard";
 import FollowCard from "../components/SampleToLoad/FollowCard";
 import DeveloperIntro from "../components/extra/DeveloperIntro";
+import useAuth from "../hooks/useAuth";
 
 const HomePage = () => {
+  const auth = useAuth();
+  // console.log(auth);
   return (
-    <div className=" w-full flex mx-auto">
+    <div className=" w-full  flex mx-auto">
       {/* Sticky Sidebar Section */}
-      <main className="flex w-full ">
+      <main className="flex w-full gap-5">
         <section className="w-full md:w-[60%] border-r border-l border-gray-700">
           <NavHomeChildren />
           <PostTweet />
@@ -21,7 +24,7 @@ const HomePage = () => {
         </section>
         {/* <Outlet /> */}
 
-        <aside className="hidden md:block sm:w-[40%]  border-r border-l border-gray-700 relative px-1">
+        <aside className="hidden md:block sm:w-[40%] border-gray-700 relative px-1">
           <div className="sticky top-1">
             <SearchForm />
           </div>
