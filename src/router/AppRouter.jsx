@@ -8,6 +8,7 @@ import Message from "../page/Message";
 import BookMarks from "../page/BookMarks";
 import Profile from "../page/Profile";
 import HomePage from "../page/HomePage";
+import NotFound from "../components/fallback-components/NotFound";
 
 const AppRouter = () => {
   return (
@@ -20,6 +21,7 @@ const AppRouter = () => {
         <Route path="message" element={<Message />} />
         <Route path="bookmark" element={<BookMarks />} />
         <Route path="profile" element={<Profile />} />
+        <Route path="*" element={<NotFound />} />
       </Route>
     </Routes>
   );

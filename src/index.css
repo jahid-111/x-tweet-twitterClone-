@@ -16,3 +16,39 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* HTML: <div class="loader"></div> */
+.root-loader {
+  width: 90px;
+  height: 14px;
+  --c: #fff 92%, #0000;
+  background: radial-gradient(circle closest-side, var(--c)) calc(100% / -4) 0,
+    radial-gradient(circle closest-side, var(--c)) calc(100% / 4) 0;
+  background-size: calc(100% / 2) 100%;
+  animation: l14 1.5s infinite;
+}
+@keyframes l14 {
+  0% {
+    background-position: calc(100% / -4) 0, calc(100% / 4) 0;
+  }
+  50% {
+    background-position: calc(100% / -4) -14px, calc(100% / 4) 14px;
+  }
+  100% {
+    background-position: calc(100% / 4) -14px, calc(3 * 100% / 4) 14px;
+  }
+}
+
+.loader {
+  width: 50px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  border: 5px solid lightblue;
+  border-right-color: #1da1f2;
+  animation: l2 1s infinite linear;
+}
+@keyframes l2 {
+  to {
+    transform: rotate(1turn);
+  }
+}
