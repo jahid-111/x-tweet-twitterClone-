@@ -18,9 +18,9 @@ const HomePage = () => {
         <section className="w-full md:w-[60%] border-r border-l border-gray-700">
           <NavHomeChildren />
           <PostTweet />
-          <FeedCard />
-          <FeedCard />
-          <FeedCard />
+          {[...Array(20)].map((_, index) => (
+            <FeedCard key={index} />
+          ))}
         </section>
         {/* <Outlet /> */}
 
@@ -29,10 +29,11 @@ const HomePage = () => {
             <SearchForm />
           </div>
           <Subscription />
-
-          <TrendingCard classCustom="border border-gray-700 my-4 rounded-xl overflow-hidden" />
-          <FollowCard classCustom="border border-gray-700 my-4 rounded-xl" />
-          <DeveloperIntro />
+          <div className="sticky top-14">
+            <TrendingCard classCustom="border border-gray-700 my-4 rounded-xl overflow-hidden" />
+            <FollowCard classCustom="border border-gray-700 my-4 rounded-xl" />
+            <DeveloperIntro />
+          </div>
         </aside>
       </main>
     </div>
