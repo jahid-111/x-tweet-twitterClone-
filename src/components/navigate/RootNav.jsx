@@ -1,44 +1,35 @@
-import { useState, useEffect } from "react";
 import { navItems } from "../../utils/userIconStaticData";
 import { Link } from "react-router-dom";
 import UserAuthCard from "../userComponents/UserAuthCard";
 import TweetIconSvg from "../svgComponents/TweetIconSvg";
 import XlogoSvg from "../svgComponents/XLogoSvg";
+import useScrollToVisible from "../../hooks/useScrollToVisible";
+import { useEffect, useState } from "react";
 
 const NavRouteList = () => {
-  const [isVisible, setIsVisible] = useState(true);
+  const isVisible = useScrollToVisible();
+  const [isMobile, setIsMobile] = useState(false);
 
+  // Determine if the screen size is mobile
   useEffect(() => {
-    let lastScroll = window.scrollY;
-    // console.log("LAST", lastScroll);
-
-    const handleScroll = () => {
-      const currentScroll = window.scrollY;
-      // console.log(currentScroll);
-      if (currentScroll === 0) {
-        setIsVisible(true);
-      } else if (currentScroll > lastScroll) {
-        setIsVisible(false);
-      } else if (currentScroll < lastScroll) {
-        setIsVisible(true);
-      }
-      lastScroll = currentScroll;
+    const updateDeviceType = () => {
+      setIsMobile(window.innerWidth <= 640); // Mobile if width <= 	640px
     };
 
-    window.addEventListener("scroll", handleScroll);
+    updateDeviceType();
+    window.addEventListener("resize", updateDeviceType);
 
     return () => {
-      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("resize", updateDeviceType);
     };
   }, []);
 
   return (
     <ul className="flex sm:flex-col justify-between sm:items-center gap-4 w-full">
       {/* Logo Section */}
-      <div className={`hidden sm:block `}>
+      <div className={`hidden sm:block`}>
         <div className="xl:w-[13rem] h-auto rounded-full flex gap-2 items-center my-2">
-          {/* Uncomment if you add a logo */}
-          <Link to="/" className="hover:bg-toggle  p-2 rounded-full">
+          <Link to="/" className="hover:bg-toggle p-2 rounded-full">
             <XlogoSvg xClass="w-9 h-9" />
           </Link>
         </div>
@@ -47,16 +38,18 @@ const NavRouteList = () => {
       {navItems.map((item) => (
         <li
           key={item.id || item.label}
-          className={`${
-            isVisible ? "block" : "hidden"
+          className={`transition-all duration-300 ${
+            isMobile && !isVisible
+              ? "opacity-0 -translate-y-full"
+              : "opacity-100 translate-y-0"
           } sm:flex xl:flex-col sm:gap-4`}
         >
           <Link
             aria-label={item.label}
             to={item.label === "profile" ? "/profile" : item.href}
-            className="hover:bg-toggle xl:w-[13rem] rounded-full flex  gap-2 items-center w-full"
+            className="hover:bg-toggle xl:w-[13rem] rounded-full flex gap-2 items-center w-full"
           >
-            <item.icon className="h-11   w-11 p-2 rounded-full" />
+            <item.icon className="h-11 w-11 p-2 rounded-full" />
             <span className="hidden xl:block text-xl">{item.label}</span>
           </Link>
         </li>
