@@ -1,4 +1,3 @@
-import React from "react";
 import { PiXLogo } from "react-icons/pi";
 import { Link } from "react-router-dom";
 

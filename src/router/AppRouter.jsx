@@ -1,6 +1,5 @@
 import { Routes, Route } from "react-router-dom";
 import RootLayOut from "../layout/RootLayout";
-import Notification from "../page/Notification";
 import Message from "../page/Message";
 import BookMarks from "../page/BookMarks";
 import Profile from "../page/Profile";
@@ -12,6 +11,10 @@ import ForYouPage from "../page/children-page/explore/ForYouPage";
 import NewsPage from "../page/children-page/explore/NewsPage";
 import SportPage from "../page/children-page/explore/SportsPage";
 import Entertainment from "../page/children-page/explore/Entertainment";
+import NotificationLayout from "../layout/childrenPageLayout/NotificationLayout";
+import NotificationPage from "../page/NotificationPage";
+import NotifyVerifiedPage from "../page/children-page/notification/NotifyVerifiedPage";
+import NotifyMentionPage from "../page/children-page/notification/NotifyMentionPage";
 const AppRouter = () => {
   return (
     <Routes>
@@ -25,7 +28,12 @@ const AppRouter = () => {
           <Route path="sports" element={<SportPage />} />
           <Route path="entertainment" element={<Entertainment />} />
         </Route>
-        <Route path="notification" element={<Notification />} />
+        <Route path="notification" element={<NotificationLayout />}>
+          <Route index element={<NotificationPage />} />
+          <Route path="all-notify" element={<NotificationPage />} />
+          <Route path="verified" element={<NotifyVerifiedPage />} />
+          <Route path="mentions" element={<NotifyMentionPage />} />
+        </Route>
         <Route path="message" element={<Message />} />
         <Route path="bookmark" element={<BookMarks />} />
         <Route path="profile" element={<Profile />} />

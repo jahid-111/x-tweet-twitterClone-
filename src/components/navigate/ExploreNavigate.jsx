@@ -21,10 +21,10 @@ const NavigationExplore = () => {
           return (
             <li key={route} className="w-full">
               <Link
-                className={`block text-center py-3 ${
+                className={`block text-center py-2 ${
                   isActive
-                    ? "border-b-4 rounded-sm border-primary hover:bg-linkColor"
-                    : "hover:bg-linkColor"
+                    ? "border-b-4 border-primary hover:bg-linkColor"
+                    : "hover:border-b-4 hover:border-primary hover:bg-linkColor"
                 }`}
                 to={`/explore/${encodeURIComponent(formattedRoute)}`}
               >
