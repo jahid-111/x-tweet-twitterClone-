@@ -11,7 +11,7 @@ const PublicLayout = () => {
       <div className="absolute bottom-2 left-0 right-0">
         <Footer />
       </div>
-      <div id="modal-root-content"></div>
+    
     </div>
   );
 };

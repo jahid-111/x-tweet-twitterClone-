@@ -25,7 +25,9 @@ import ReplyPage from "../page/children-page/profile/ReplyPage";
 import HighlightsPage from "../page/children-page/profile/HighlightsProfilePage";
 import ArticlePage from "../page/children-page/profile/ArticlesProfilePage";
 import MediaPage from "../page/children-page/profile/MediaProfilePage";
+// Pages - DYNAMIC
 import StatusPage from "../page/dynamic-pge/StatusPage";
+import StatusModalPage from "../page/dynamic-pge/StatusModalPage";
 const AppRouter = () => {
   return (
     <Routes>
@@ -33,7 +35,7 @@ const AppRouter = () => {
         <Route index element={<HomePage />} />
         {/* DYNAMIC INDIVIDUAL Route */}
         <Route path="status/:id" element={<StatusPage />} />
-        <Route path="status/:id/photo" element={<StatusPage />} />
+        <Route path="status/:id/photo" element={<StatusModalPage />} />
         {/* -------------------------------- */}
         <Route path="explore" element={<ExploreLayout />}>
           <Route index element={<ExplorePage />} />
