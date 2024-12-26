@@ -20,6 +20,7 @@ import MessageLayout from "../layout/childrenPageLayout/MessageLayout";
 import ChatToUserPage from "../page/children-page/message/ChatToUserPage";
 // Pages - PROFILE
 import ProfileLayout from "../layout/childrenPageLayout/ProfileLayout";
+import PostsProfilePage from "../page/children-page/profile/PostsProfilePage";
 const AppRouter = () => {
   return (
     <Routes>
@@ -43,7 +44,9 @@ const AppRouter = () => {
           <Route path=":id" element={<ChatToUserPage />} />
         </Route>
         <Route path="bookmark" element={<BookMarks />} /> {/*OPTION PAGE*/}
-        <Route path="profile" element={<ProfileLayout />} />
+        <Route path="profile" element={<ProfileLayout />}>
+          <Route index element={<PostsProfilePage />} />
+        </Route>
         <Route path="*" element={<NotFound />} />
       </Route>
     </Routes>

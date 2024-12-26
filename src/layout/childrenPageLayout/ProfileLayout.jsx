@@ -5,13 +5,15 @@ import TrendingCard from "../../components/SampleToLoad/TrendingCard";
 import ProfileNavigation from "../../components/navigate/ProfileNavigation";
 import SearchForm from "../../components/form/SearchForm";
 import Subscription from "../../components/extra/Subscription";
+import ProfileIntro from "../../components/userComponents/ProfileIntro";
 
 const ProfileLayout = () => {
   return (
     <main className="flex w-full gap-4">
       <section className="w-full md:w-[60%] border-l border-r border-gray-700">
+        <ProfileIntro />
         <div className="sticky top-1 border-b border-gray-700 w-full bg-opacity-80 backdrop-blur-2xl">
-          <h4 className="px-6 py-3 text-xl font-semibold">Notification</h4>
+          <h4 className="px-6 py-3 text-xl font-semibold">user Post</h4>
           <ProfileNavigation />
         </div>
 
