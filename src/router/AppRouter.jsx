@@ -1,20 +1,24 @@
 import { Routes, Route } from "react-router-dom";
 import RootLayOut from "../layout/RootLayout";
-import Message from "../page/Message";
 import BookMarks from "../page/BookMarks";
 import Profile from "../page/Profile";
 import HomePage from "../page/HomePage";
 import NotFound from "../components/fallback-components/NotFound";
+// Pages - EXPLORE
 import ExplorePage from "../page/ExplorePage";
 import ExploreLayout from "../layout/childrenPageLayout/ExploreLayout";
 import ForYouPage from "../page/children-page/explore/ForYouPage";
 import NewsPage from "../page/children-page/explore/NewsPage";
 import SportPage from "../page/children-page/explore/SportsPage";
 import Entertainment from "../page/children-page/explore/Entertainment";
+// Pages - NOTIFICATION
 import NotificationLayout from "../layout/childrenPageLayout/NotificationLayout";
 import NotificationPage from "../page/NotificationPage";
 import NotifyVerifiedPage from "../page/children-page/notification/NotifyVerifiedPage";
 import NotifyMentionPage from "../page/children-page/notification/NotifyMentionPage";
+// Pages - MESSAGE
+import MessageLayout from "../layout/childrenPageLayout/MessageLayout";
+import ChatToUserPage from "../page/children-page/message/ChatToUserPage";
 const AppRouter = () => {
   return (
     <Routes>
@@ -34,7 +38,10 @@ const AppRouter = () => {
           <Route path="verified" element={<NotifyVerifiedPage />} />
           <Route path="mentions" element={<NotifyMentionPage />} />
         </Route>
-        <Route path="message" element={<Message />} />
+        <Route path="message" element={<MessageLayout />}>
+          <Route path=":id" element={<ChatToUserPage />} />
+        </Route>
+
         <Route path="bookmark" element={<BookMarks />} />
         <Route path="profile" element={<Profile />} />
         <Route path="*" element={<NotFound />} />
