@@ -96,3 +96,11 @@ export const exploreRoutes = [
 ];
 
 export const notifyRoutes = ["All Notify", "Verified", "Mentions"];
+export const profileRoutes = [
+  "Posts",
+  "Replies",
+  "Highlights",
+  "Articles",
+  "Media",
+  "Likes",
+];

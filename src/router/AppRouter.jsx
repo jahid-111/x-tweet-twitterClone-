@@ -1,7 +1,6 @@
 import { Routes, Route } from "react-router-dom";
 import RootLayOut from "../layout/RootLayout";
 import BookMarks from "../page/BookMarks";
-import Profile from "../page/Profile";
 import HomePage from "../page/HomePage";
 import NotFound from "../components/fallback-components/NotFound";
 // Pages - EXPLORE
@@ -19,6 +18,8 @@ import NotifyMentionPage from "../page/children-page/notification/NotifyMentionP
 // Pages - MESSAGE
 import MessageLayout from "../layout/childrenPageLayout/MessageLayout";
 import ChatToUserPage from "../page/children-page/message/ChatToUserPage";
+// Pages - PROFILE
+import ProfileLayout from "../layout/childrenPageLayout/ProfileLayout";
 const AppRouter = () => {
   return (
     <Routes>
@@ -41,9 +42,8 @@ const AppRouter = () => {
         <Route path="message" element={<MessageLayout />}>
           <Route path=":id" element={<ChatToUserPage />} />
         </Route>
-
-        <Route path="bookmark" element={<BookMarks />} />
-        <Route path="profile" element={<Profile />} />
+        <Route path="bookmark" element={<BookMarks />} /> {/*OPTION PAGE*/}
+        <Route path="profile" element={<ProfileLayout />} />
         <Route path="*" element={<NotFound />} />
       </Route>
     </Routes>
