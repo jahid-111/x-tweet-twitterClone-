@@ -7,7 +7,7 @@ import useScrollToVisible from "../../hooks/useScrollToVisible";
 import { useEffect, useState } from "react";
 
 const NavRouteList = () => {
-  const isVisible = useScrollToVisible();
+  const { isVisible } = useScrollToVisible();
   const [isMobile, setIsMobile] = useState(false);
 
   // Determine if the screen size is mobile

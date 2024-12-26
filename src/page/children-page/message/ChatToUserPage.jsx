@@ -3,9 +3,9 @@ import ImageSmall from "../../../components/images/ImageSmall";
 
 const ChatToUserPage = () => {
   return (
-    <div>
+    <div className="flex flex-col h-full">
       {/* Chat Messages */}
-      <div className="overflow-y-scroll h-[calc(100vh-10rem)] px-4 py-2">
+      <div className="flex-1 overflow-y-scroll h-[calc(100vh-10rem)] px-4 py-2 custom-scrollbar">
         {[...Array(20)].map((_, i) => (
           <div
             key={i}
@@ -41,7 +41,7 @@ const ChatToUserPage = () => {
       </div>
 
       {/* Chat Input */}
-      <div className="sticky bottom-10 px-4 border-gray-700">
+      <div className="sticky bottom-0 px-4 py-2 border-t border-gray-700 bg-gray-900">
         <form className="flex items-center gap-3">
           <input
             type="text"

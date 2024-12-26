@@ -1,15 +1,13 @@
 import { useEffect, useState } from "react";
 
 const useScrollToVisible = () => {
-  const [isVisible2, setIsVisible] = useState(true);
+  const [isVisible, setIsVisible] = useState(true);
 
   useEffect(() => {
     let lastScroll = window.scrollY;
-    // console.log("LAST", lastScroll);
 
     const handleScroll = () => {
       const currentScroll = window.scrollY;
-      // console.log(currentScroll);
       if (currentScroll === 0) {
         setIsVisible(true);
       } else if (currentScroll > lastScroll) {
@@ -27,7 +25,7 @@ const useScrollToVisible = () => {
     };
   }, []);
 
-  return isVisible2;
+  return { isVisible, setIsVisible };
 };
 
 export default useScrollToVisible;

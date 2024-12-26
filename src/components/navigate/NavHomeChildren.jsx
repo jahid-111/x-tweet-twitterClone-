@@ -1,7 +1,7 @@
 import useScrollToVisible from "../../hooks/useScrollToVisible";
 
 const NavHomeChildren = () => {
-  const isVisible = useScrollToVisible();
+  const { isVisible } = useScrollToVisible();
   const buttonTexts = ["For you", "Following"];
 
   const handleToggleButtonToPathRoute = (route) => {
