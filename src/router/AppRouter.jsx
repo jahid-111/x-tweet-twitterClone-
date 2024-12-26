@@ -25,11 +25,16 @@ import ReplyPage from "../page/children-page/profile/ReplyPage";
 import HighlightsPage from "../page/children-page/profile/HighlightsProfilePage";
 import ArticlePage from "../page/children-page/profile/ArticlesProfilePage";
 import MediaPage from "../page/children-page/profile/MediaProfilePage";
+import StatusPage from "../page/dynamic-pge/StatusPage";
 const AppRouter = () => {
   return (
     <Routes>
       <Route path="/" element={<RootLayOut />}>
         <Route index element={<HomePage />} />
+        {/* DYNAMIC INDIVIDUAL Route */}
+        <Route path="status/:id" element={<StatusPage />} />
+        <Route path="status/:id/photo" element={<StatusPage />} />
+        {/* -------------------------------- */}
         <Route path="explore" element={<ExploreLayout />}>
           <Route index element={<ExplorePage />} />
           <Route path="for-you" element={<ExplorePage />} />

@@ -33,7 +33,7 @@ const FeedCard = ({ tweet, singleTweet }) => {
 
         {/* Tweet Main Content */}
         <div onClick={(e) => e.stopPropagation()}>
-          <Link to={`/status/${tweetId}/modalphoto`}>
+          <Link to={`/status/${tweetId}/photo`}>
             <FeedImages images={dataTweet?.images} />
           </Link>
         </div>
