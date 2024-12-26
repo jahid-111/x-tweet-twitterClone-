@@ -6,14 +6,21 @@ import ProfileNavigation from "../../components/navigate/ProfileNavigation";
 import SearchForm from "../../components/form/SearchForm";
 import Subscription from "../../components/extra/Subscription";
 import ProfileIntro from "../../components/userComponents/ProfileIntro";
+import BackButtonRouter from "../../components/navigate/BackButtonRouter";
 
 const ProfileLayout = () => {
   return (
     <main className="flex w-full gap-4">
       <section className="w-full md:w-[60%] border-l border-r border-gray-700">
+        <div className="sticky top-0 flex border-gray-700 w-full bg-opacity-80 backdrop-blur-2xl">
+          <BackButtonRouter />
+          <h4 className="px-6 py-3 text-xl font-semibold">
+            Mohd. Jahidul Islam ( 5 Posts )
+          </h4>
+          {/* <ProfileNavigation /> */}
+        </div>
         <ProfileIntro />
-        <div className="sticky top-1 border-b border-gray-700 w-full bg-opacity-80 backdrop-blur-2xl">
-          <h4 className="px-6 py-3 text-xl font-semibold">user Post</h4>
+        <div className="sticky top-14 border-b border-gray-700 w-full bg-opacity-80 backdrop-blur-2xl">
           <ProfileNavigation />
         </div>
 

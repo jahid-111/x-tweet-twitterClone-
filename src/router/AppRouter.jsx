@@ -22,7 +22,7 @@ import ChatToUserPage from "../page/children-page/message/ChatToUserPage";
 import ProfileLayout from "../layout/childrenPageLayout/ProfileLayout";
 import PostsProfilePage from "../page/children-page/profile/PostsProfilePage";
 import ReplyPage from "../page/children-page/profile/ReplyPage";
-import HighlightsPage from "../page/children-page/profile/HighlightsPofilePage";
+import HighlightsPage from "../page/children-page/profile/HighlightsProfilePage";
 import ArticlePage from "../page/children-page/profile/ArticlesProfilePage";
 import MediaPage from "../page/children-page/profile/MediaProfilePage";
 const AppRouter = () => {

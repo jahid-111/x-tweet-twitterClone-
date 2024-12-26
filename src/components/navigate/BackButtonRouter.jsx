@@ -10,7 +10,7 @@ const BackButtonRouter = () => {
 
   return (
     <button
-      className="px-4 py-2 rounded flex items-center gap-2 md:hidden"
+      className=" p-3 m-1 rounded-full flex items-center gap-2 hover:bg-toggle"
       onClick={handleBackToRoutes}
     >
       <IoArrowBack className=" h-6 w-6" />
