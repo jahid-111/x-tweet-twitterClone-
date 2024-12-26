@@ -31,7 +31,7 @@ const ProfileNavigation = () => {
                     ? "border-b-4 rounded-b-md border-primary hover:bg-linkColor"
                     : "hover:bg-linkColor"
                 }`}
-                to={`/notification/${encodeURIComponent(formattedRoute)}`}
+                to={`/profile/${encodeURIComponent(formattedRoute)}`}
               >
                 {route}
               </Link>
