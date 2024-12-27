@@ -1,7 +1,7 @@
 import { actionItems } from "../../utils/userIconStaticData";
 
 const FeedReaction = ({ tweetId }) => {
-  console.log(tweetId);
+  // console.log(tweetId);
   // const router = useRouteError();
 
   function handleReactionBy(name, tweetId) {
