@@ -5,15 +5,25 @@ import TweetIconSvg from "../svgComponents/TweetIconSvg";
 import XlogoSvg from "../svgComponents/XLogoSvg";
 import useScrollToVisible from "../../hooks/useScrollToVisible";
 import { useEffect, useState } from "react";
+import Modal from "../fallback-components/Modal";
+import PostTweet from "../tweet-post/PostTweet";
 
 const NavRouteList = () => {
   const { isVisible } = useScrollToVisible();
   const [isMobile, setIsMobile] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  function handleOpenModal() {
+    setIsModalOpen((prv) => !prv)
+
+  }
+
+  // console.log(isModalOpen)
 
   // Determine if the screen size is mobile
   useEffect(() => {
     const updateDeviceType = () => {
-      setIsMobile(window.innerWidth <= 640); // Mobile if width <= 	640px
+      setIsMobile(window.innerWidth <= 640); // Mobile if width <=  640px
     };
 
     updateDeviceType();
@@ -38,11 +48,10 @@ const NavRouteList = () => {
       {navItems.map((item) => (
         <li
           key={item.id || item.label}
-          className={`transition-all duration-300 ${
-            isMobile && !isVisible
-              ? "opacity-0 -translate-y-full"
-              : "opacity-100 translate-y-0"
-          } sm:flex xl:flex-col sm:gap-4`}
+          className={`transition-all duration-300 ${isMobile && !isVisible
+            ? "opacity-0 -translate-y-full"
+            : "opacity-100 translate-y-0"
+            } sm:flex xl:flex-col sm:gap-4`}
         >
           <Link
             aria-label={item.label}
@@ -61,21 +70,26 @@ const NavRouteList = () => {
           {/* Post Button */}
           <div className="w-full flex justify-center">
             {/* Large screen POST button */}
-            <Link
-              to="/compose/tweet-post"
+            <button
+              onClick={handleOpenModal}
               className="hidden xl:block w-full bg-gray-200 hover:bg-gray-300 py-4 px-8 text-gray-800 text-sm font-semibold rounded-full text-center"
             >
               POST
-            </Link>
+            </button>
 
             {/* Small screen POST button */}
-            <Link
-              to="/compose/tweet-post"
+            <button
+              onClick={handleOpenModal}
               className="fixed bottom-16 right-1 py-2 px-6 text-gray-800 text-sm font-semibold rounded-full"
             >
               <TweetIconSvg />
-            </Link>
+            </button>
           </div>
+          {isModalOpen && (
+            <Modal modalTitle="Post Tweet" onClose={() => setIsModalOpen(false)}>
+              <PostTweet />
+            </Modal>
+          )}
 
           {/* User Authentication Card */}
           <div className="hidden sm:block w-full">
@@ -88,3 +102,4 @@ const NavRouteList = () => {
 };
 
 export default NavRouteList;
+

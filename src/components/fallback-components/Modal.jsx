@@ -1,18 +1,20 @@
 import { useEffect, useRef, useCallback, useState } from "react";
 import { createPortal } from "react-dom";
 import { HiOutlineXMark } from "react-icons/hi2";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 
-const Modal = ({ children, modalTitle }) => {
-  const navigate = useNavigate(); // React Router's navigation hook
-
+const Modal = ({ children, modalTitle, onClose }) => {
+  // const navigate = useNavigate(); // React Router's navigation hook
   const modalRef = useRef(null);
   const [mounted, setMounted] = useState(false);
 
   // Close the modal and navigate back
   const onHide = useCallback(() => {
-    navigate(-1); // Navigate back
-  }, [navigate]);
+    if (onClose) {
+      onClose(false); // Properly call the onClose function
+    }
+    // navigate(-1); // Navigate back just hide
+  }, [onClose]);
 
   // Close modal on Escape key press
   const handleKeyDown = useCallback(
@@ -73,3 +75,4 @@ const Modal = ({ children, modalTitle }) => {
 };
 
 export default Modal;
+
