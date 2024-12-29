@@ -4,7 +4,8 @@ const FeedReaction = ({ tweetId }) => {
   // console.log(tweetId);
   // const router = useRouteError();
 
-  function handleReactionBy(name, tweetId) {
+  function handleReactionBy(e, name, tweetId) {
+    e.stopPropagation();
     console.log(name, tweetId);
 
     if (name === "comments") {
@@ -24,7 +25,7 @@ const FeedReaction = ({ tweetId }) => {
       {actionItems.map((item, i) => (
         <div key={i} className="flex justify-center items-center">
           <button
-            onClick={() => handleReactionBy(item.name, tweetId)}
+            onClick={(e) => handleReactionBy(e, item.name, tweetId)}
             className="mx-auto"
           >
             <item.icon className="h-7 w-7 my-1 rounded-full p-1 hover:bg-primary" />
