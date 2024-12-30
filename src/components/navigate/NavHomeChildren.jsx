@@ -1,35 +1,41 @@
-import useScrollToVisible from "../../hooks/useScrollToVisible";
+import { Link, useLocation } from "react-router-dom";
+import { homeRoutes } from "../../utils/userIconStaticData";
 
-const NavHomeChildren = () => {
-  const { isVisible } = useScrollToVisible();
-  const buttonTexts = ["For you", "Following"];
-
-  const handleToggleButtonToPathRoute = (route) => {
-    console.log(`Navigating to ${route}`);
-    // Add navigation logic here, e.g., using Next.js Router:
-    // router.push(`/${route.toLowerCase()}`);
-  };
+const NavigationHome = () => {
+  const { pathname } = useLocation(); // Using useLocation to get the current pathname
 
   return (
-    <div
-      className={`transition-all duration-300 ${
-        isVisible ? "delay-150 translate-y-0" : "opacity-0 -translate-y-full"
-      } sticky top-0 w-full border-b border-gray-600 bg-opacity-80 backdrop-blur-lg flex flex-row justify-around items-center`}
-    >
-      {buttonTexts.map((buttonText, index) => (
-        <button
-          key={index}
-          onClick={() => handleToggleButtonToPathRoute(buttonText)}
-          className="w-full h-12 flex justify-center items-center gap-2 hover:bg-toggle"
-          aria-label={`Navigate to ${buttonText}`}
-        >
-          <span className="hover:border-primary border-b-[.2rem]">
-            {buttonText}
-          </span>
-        </button>
-      ))}
-    </div>
+    <nav aria-label="Explore categories" className="border-gray-700 mt-1">
+      <ul className="flex justify-center items-center overflow-x-auto w-full">
+        {homeRoutes.map((route) => {
+          const formattedRoute = route
+            .trim()
+            .toLowerCase()
+            .replace(/\s+/g, "-"); // Replace spaces with hyphens
+
+          // Check if the pathname is '/explore' and set 'For you' as active as Default
+          const isActive =
+            (pathname === "/" && route === "Home") ||
+            pathname === `/${encodeURIComponent(formattedRoute)}`;
+
+          return (
+            <li key={route} className="w-full">
+              <Link
+                className={`block text-center py-2 ${isActive
+                  ? "border-b-4 border-primary hover:bg-linkColor"
+                  : " hover:bg-linkColor"
+                  }`}
+                to={`/${encodeURIComponent(formattedRoute)}`}
+              >
+                {route}
+              </Link>
+            </li>
+          );
+        })}
+      </ul>
+    </nav>
   );
 };
 
-export default NavHomeChildren;
+
+export default NavigationHome

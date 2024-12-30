@@ -85,7 +85,7 @@ export const monthsForSignup = [
   "December",
 ];
 
-export const homeRoutes = ["For you", "Following"];
+export const homeRoutes = ["Home", "Following"];
 
 export const exploreRoutes = [
   "For you",

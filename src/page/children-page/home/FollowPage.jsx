@@ -1,17 +1,17 @@
 import { useState } from "react";
-import Subscription from "../components/extra/Subscription";
-import FeedCard from "../components/feed-card/FeedCard";
-import SearchForm from "../components/form/SearchForm";
-import PostTweet from "../components/tweet-post/PostTweet";
-import TrendingCard from "../components/SampleToLoad/TrendingCard";
-import FollowCard from "../components/SampleToLoad/FollowCard";
-import DeveloperIntro from "../components/extra/DeveloperIntro";
-import useAuth from "../hooks/useAuth";
-import useInfiniteScroll from "../hooks/useInfiniteScroll";
-import NavigationHome from "../components/navigate/NavHomeChildren";
-import useScrollToVisible from "../hooks/useScrollToVisible";
+import useAuth from "../../../hooks/useAuth";
+import useInfiniteScroll from "../../../hooks/useInfiniteScroll";
+import PostTweet from "../../../components/tweet-post/PostTweet";
+import SearchForm from "../../../components/form/SearchForm";
+import Subscription from "../../../components/extra/Subscription";
+import TrendingCard from "../../../components/SampleToLoad/TrendingCard";
+import FollowCard from "../../../components/SampleToLoad/FollowCard";
+import DeveloperIntro from "../../../components/extra/DeveloperIntro";
+import NavigationHome from "../../../components/navigate/NavHomeChildren";
+import useScrollToVisible from "../../../hooks/useScrollToVisible";
 
-const HomePage = () => {
+
+const FollowPage = () => {
   const auth = useAuth();
 
   // State to manage the feed data
@@ -30,7 +30,7 @@ const HomePage = () => {
 
   // Use the infinite scroll hook
   const { isFetching, resetFetching } = useInfiniteScroll(fetchMoreFeedData);
-  const { isVisible } = useScrollToVisible();
+  const { isVisible } = useScrollToVisible()
 
   return (
     <div className="w-full flex mx-auto">
@@ -39,25 +39,21 @@ const HomePage = () => {
         <section className="w-full md:w-[60%] border-r border-l border-gray-700">
           {/* Sticky Navigation Section */}
           <div
-            className={`sticky top-1 transition-all duration-500 ${
-              isVisible
-                ? "opacity-100 translate-y-0 backdrop-blur-2xl bg-opacity-80"
-                : "opacity-0 -translate-y-full"
-            }`}
+            className={`sticky top-1 transition-all duration-500 ${isVisible
+              ? "opacity-100 translate-y-0 backdrop-blur-2xl bg-opacity-80"
+              : "opacity-0 -translate-y-full"
+              }`}
           >
             <NavigationHome />
           </div>
-
-          {/* Main Content */}
           <PostTweet />
           {feedData.map((_, index) => (
-            <FeedCard key={index} />
+            <FollowCard key={index} />
           ))}
           {isFetching && <div className="loader-infinity mx-auto my-4" />}
           <div id="infinite-scroll-sentinel" className="h-3 bg-transparent" />
         </section>
 
-        {/* Right Sidebar */}
         <aside className="hidden md:block sm:w-[40%] border-gray-700 relative px-1">
           <div className="sticky top-1">
             <SearchForm />
@@ -74,4 +70,4 @@ const HomePage = () => {
   );
 };
 
-export default HomePage;
+export default FollowPage;

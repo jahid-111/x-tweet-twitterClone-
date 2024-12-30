@@ -1,7 +1,10 @@
 import { Routes, Route } from "react-router-dom";
 import RootLayOut from "../layout/RootLayout";
 import BookMarks from "../page/BookMarks";
+
+// ROOT HOME PAGE
 import HomePage from "../page/HomePage";
+import FollowPage from "../page/children-page/home/FollowPage";
 import NotFound from "../components/fallback-components/NotFound";
 // Pages - EXPLORE
 import ExplorePage from "../page/ExplorePage";
@@ -27,11 +30,15 @@ import ArticlePage from "../page/children-page/profile/ArticlesProfilePage";
 import MediaPage from "../page/children-page/profile/MediaProfilePage";
 // Pages - DYNAMIC
 import StatusPage from "../page/dynamic-pge/StatusPage";
+
 const AppRouter = () => {
   return (
     <Routes>
       <Route path="/" element={<RootLayOut />}>
+        {/* Default Landing Page */}
         <Route index element={<HomePage />} />
+        <Route path="/home" element={<HomePage />} />
+        <Route path="following" element={<FollowPage />} />
         {/* DYNAMIC INDIVIDUAL Route */}
         <Route path="status/:id" element={<StatusPage />} />
         {/* -------------------------------- */}
