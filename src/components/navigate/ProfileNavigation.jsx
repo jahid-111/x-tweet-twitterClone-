@@ -3,12 +3,11 @@ import { profileRoutes } from "../../utils/userIconStaticData";
 
 const ProfileNavigation = () => {
   const { pathname } = useLocation();
-  // console.log(pathname);
 
   return (
     <nav
       aria-label="Explore categories"
-      className="border-gray-700 marker:overflow-scroll"
+      className="border-gray-700 overflow-scroll mt-1"
     >
       <ul className="flex justify-center items-center overflow-x-auto w-full">
         {profileRoutes.map((route, index) => {
@@ -17,19 +16,18 @@ const ProfileNavigation = () => {
             .toLowerCase()
             .replace(/\s+/g, "-");
 
+          // Logic to determine if the route is active
           const isActive =
-            index === 0 || // Always make the first route active
-            pathname === "/posts" ||
+            (pathname === "/profile" && index === 0) || // Initial landing route as active
             pathname === `/profile/${encodeURIComponent(formattedRoute)}`;
 
-          // console.log({ route, formattedRoute, isActive });
           return (
-            <li key={route} className="w-full">
+            <li key={route} className="w-full text-center">
               <Link
-                className={`block text-center py-3 ${
+                className={`block text-center py-3 px-4 ${
                   isActive
-                    ? "border-b-4 rounded-b-md border-primary hover:bg-linkColor"
-                    : "hover:bg-linkColor"
+                    ? "border-b-4 rounded-b-md border-primary rounded-md bg-linkColor"
+                    : "hover:bg-linkColor rounded-md"
                 }`}
                 to={`/profile/${encodeURIComponent(formattedRoute)}`}
               >

@@ -24,8 +24,8 @@ const NavNotification = () => {
               <Link
                 className={`block text-center py-3 ${
                   isActive
-                    ? "border-b-4 rounded-b-md border-primary hover:bg-linkColor"
-                    : "hover:bg-linkColor"
+                    ? "border-b-4 rounded-b-md border-primary hover:bg-linkColor rounded-md"
+                    : "hover:bg-linkColor rounded-md"
                 }`}
                 to={`/notification/${encodeURIComponent(formattedRoute)}`}
               >

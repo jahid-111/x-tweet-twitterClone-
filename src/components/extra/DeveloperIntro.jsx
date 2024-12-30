@@ -1,18 +1,22 @@
-import React from "react";
+import { FaLink } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
 const DeveloperIntro = () => {
   return (
-    <div>
-      <p className="text-center my-1 text-green-500 ">
+    <div className=" flex flex-col justify-center items-center">
+      <div className="">
         <Link
           target="_blank"
           to="https://github.com/jahid-111"
-          className="hover:text-green-600 "
+          className="hover:text-green-600 flex items-center gap-2 hover:underline "
         >
-          Developer : Mohd. Jahidul Islam
+          <FaLink />{" "}
+          <p className="text-center my-2 text-green-500 text-lg font-semibold">
+            Developer : Mohd. Jahidul Islam
+          </p>
         </Link>
-      </p>
+      </div>
+      <code className="text-center text-gray-400 mt-2">© Copy X (Twitter)</code>
     </div>
   );
 };
