@@ -4,36 +4,17 @@ import UserAuthCard from "../userComponents/UserAuthCard";
 import TweetIconSvg from "../svgComponents/TweetIconSvg";
 import XlogoSvg from "../svgComponents/XLogoSvg";
 import useScrollToVisible from "../../hooks/useScrollToVisible";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Modal from "../fallback-components/Modal";
 import PostTweet from "../tweet-post/PostTweet";
 
 const NavRouteList = () => {
   const { isVisible } = useScrollToVisible();
-  const [isMobile, setIsMobile] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   function handleOpenModal() {
-    setIsModalOpen((prv) => !prv)
-
+    setIsModalOpen((prv) => !prv);
   }
-
-  // console.log(isModalOpen)
-
-  // Determine if the screen size is mobile
-  useEffect(() => {
-    const updateDeviceType = () => {
-      setIsMobile(window.innerWidth <= 640); // Mobile if width <=  640px
-    };
-
-    updateDeviceType();
-    window.addEventListener("resize", updateDeviceType);
-
-    return () => {
-      window.removeEventListener("resize", updateDeviceType);
-    };
-  }, []);
-
   return (
     <ul className="flex sm:flex-col justify-between sm:items-center gap-4 w-full">
       {/* Logo Section */}
@@ -48,10 +29,7 @@ const NavRouteList = () => {
       {navItems.map((item) => (
         <li
           key={item.id || item.label}
-          className={`transition-all duration-300 ${isMobile && !isVisible
-            ? "opacity-0 -translate-y-full"
-            : "opacity-100 translate-y-0"
-            } sm:flex xl:flex-col sm:gap-4`}
+          className={`transition-all duration-300 sm:flex xl:flex-col sm:gap-4`}
         >
           <Link
             aria-label={item.label}
@@ -77,16 +55,23 @@ const NavRouteList = () => {
               POST
             </button>
 
-            {/* Small screen POST button */}
             <button
               onClick={handleOpenModal}
-              className="fixed bottom-16 right-1 py-2 px-6 text-gray-800 text-sm font-semibold rounded-full"
+              className={`${
+                isVisible
+                  ? "fixed bottom-20 xl:hidden right-0 py-2 px-6 text-slate-300 text-sm font-semibold rounded-full"
+                  : "fixed bottom-20 xl:hidden right-0 py-2 px-6 text-gray-500 text-sm font-semibold rounded-full"
+              }`}
             >
               <TweetIconSvg />
             </button>
           </div>
+
           {isModalOpen && (
-            <Modal modalTitle="Post Tweet" onClose={() => setIsModalOpen(false)}>
+            <Modal
+              modalTitle="Post Tweet"
+              onClose={() => setIsModalOpen(false)}
+            >
               <PostTweet />
             </Modal>
           )}
@@ -102,4 +87,3 @@ const NavRouteList = () => {
 };
 
 export default NavRouteList;
-

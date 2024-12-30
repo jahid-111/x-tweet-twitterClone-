@@ -33,7 +33,7 @@ const useInfiniteScroll = (callback, options = {}) => {
   }, [isFetching, callback]);
 
   const resetFetching = () => setIsFetching(false);
-  console.log("🟢🟢", isFetching);
+  // console.log("🟢🟢", isFetching);
   return { isFetching, resetFetching };
 };
 
