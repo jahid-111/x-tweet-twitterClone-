@@ -2,10 +2,11 @@ import { Routes, Route } from "react-router-dom";
 import RootLayOut from "../layout/RootLayout";
 import BookMarks from "../page/BookMarks";
 
+// Pages - ***
+import NotFound from "../components/fallback-components/NotFound";
 // ROOT HOME PAGE
 import HomePage from "../page/HomePage";
 import FollowPage from "../page/children-page/home/FollowPage";
-import NotFound from "../components/fallback-components/NotFound";
 // Pages - EXPLORE
 import ExplorePage from "../page/ExplorePage";
 import ExploreLayout from "../layout/childrenPageLayout/ExploreLayout";

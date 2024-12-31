@@ -4,6 +4,7 @@ import Footer from "../components/extra/Footer";
 const PublicLayout = () => {
   return (
     <div>
+      <h3>LOGIN</h3>
       <main className="mx-auto ">
         <Outlet />
       </main>

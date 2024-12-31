@@ -1,10 +1,14 @@
-import React, { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import ImageSmall from "../images/ImageSmall";
+import { useNavigate } from "react-router-dom";
+import useAuth from "../../hooks/useAuth";
 
 const UserAuthCard = () => {
   const [isDropdownOpen, setDropdownOpen] = useState(false);
   const dropdownRef = useRef(null); // Ref to detect clicks outside of the dropdown
+  const { setIsAuthenticated } = useAuth();
 
+  const navigate = useNavigate();
   const handleAuthButtonClick = () => {
     setDropdownOpen((prevState) => !prevState); // Toggle dropdown visibility
   };
@@ -17,7 +21,9 @@ const UserAuthCard = () => {
     } else if (action === "logout") {
       const isConfirmed = window.confirm("Are you sure you want to log out?");
       if (isConfirmed) {
-        // Perform logout logic here
+        console.log("out");
+        setIsAuthenticated(false);
+        navigate("/auth");
       }
     }
 
