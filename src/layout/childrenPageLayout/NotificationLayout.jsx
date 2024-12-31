@@ -3,8 +3,10 @@ import FollowCard from "../../components/SampleToLoad/FollowCard";
 import DeveloperIntro from "../../components/extra/DeveloperIntro";
 import NavNotification from "../../components/navigate/NavNotification";
 import TrendingCard from "../../components/SampleToLoad/TrendingCard";
+import usePageDocTitle from "../../hooks/usePageDocTitle";
 
 const NotificationLayout = () => {
+  usePageDocTitle("Twitter © || Notification");
   return (
     <main className="flex w-full gap-4">
       <section className="w-full md:w-[60%] border-l border-r border-gray-700">

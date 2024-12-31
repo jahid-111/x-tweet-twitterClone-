@@ -9,7 +9,7 @@ import FollowCard from "../../../components/SampleToLoad/FollowCard";
 import DeveloperIntro from "../../../components/extra/DeveloperIntro";
 import NavigationHome from "../../../components/navigate/NavHomeChildren";
 import useScrollToVisible from "../../../hooks/useScrollToVisible";
-
+import usePageDocTitle from "../../../hooks/usePageDocTitle";
 
 const FollowPage = () => {
   const auth = useAuth();
@@ -30,7 +30,7 @@ const FollowPage = () => {
 
   // Use the infinite scroll hook
   const { isFetching, resetFetching } = useInfiniteScroll(fetchMoreFeedData);
-  const { isVisible } = useScrollToVisible()
+  const { isVisible } = useScrollToVisible();
 
   return (
     <div className="w-full flex mx-auto">
@@ -39,14 +39,14 @@ const FollowPage = () => {
         <section className="w-full md:w-[60%] border-r border-l border-gray-700">
           {/* Sticky Navigation Section */}
           <div
-            className={`sticky top-1 transition-all duration-500 ${isVisible
-              ? "opacity-100 translate-y-0 backdrop-blur-2xl bg-opacity-80"
-              : "opacity-0 -translate-y-full"
-              }`}
+            className={`sticky top-1 border-b border-gray-700 transition-all duration-500 ${
+              isVisible
+                ? "opacity-100 translate-y-0 backdrop-blur-2xl bg-opacity-80"
+                : "opacity-0 -translate-y-full"
+            }`}
           >
             <NavigationHome />
           </div>
-          <PostTweet />
           {feedData.map((_, index) => (
             <FollowCard key={index} />
           ))}

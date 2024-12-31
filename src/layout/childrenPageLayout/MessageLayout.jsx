@@ -2,8 +2,10 @@ import { useState } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 import MessageInboxUser from "../../page/children-page/message/MessageInboxUser";
 import { IoArrowBack } from "react-icons/io5";
+import usePageDocTitle from "../../hooks/usePageDocTitle";
 
 const MessageLayout = () => {
+  usePageDocTitle("Twitter © || Message");
   const [showChat, setShowChat] = useState(false);
   const navigate = useNavigate();
 

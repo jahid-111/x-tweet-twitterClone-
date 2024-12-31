@@ -9,7 +9,6 @@ import Modal from "../fallback-components/Modal";
 import StatusModalPage from "../../page/dynamic-pge/StatusModalPage";
 
 const FeedCard = ({ tweet, singleTweet }) => {
-
   const [isOpenModal, setIsOpenModal] = useState(false);
   const navigate = useNavigate();
 
@@ -21,7 +20,6 @@ const FeedCard = ({ tweet, singleTweet }) => {
     e.stopPropagation(); // Prevent event bubbling for modal open
     setIsOpenModal((prev) => !prev);
   };
-
 
   // Navigate to the tweet's page only when the modal is closed
   const navigateToStatusPage = () => {
@@ -46,7 +44,9 @@ const FeedCard = ({ tweet, singleTweet }) => {
         <FeedAuthor author={dataTweet} />
 
         {/* Tweet Main Content */}
-        <button onClick={handleModal}> {/* Toggling modal on click */}
+        <button onClick={handleModal}>
+          {" "}
+          {/* Toggling modal on click */}
           <FeedImages images={dataTweet?.images} />
         </button>
 

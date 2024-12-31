@@ -10,8 +10,10 @@ import useAuth from "../hooks/useAuth";
 import useInfiniteScroll from "../hooks/useInfiniteScroll";
 import NavigationHome from "../components/navigate/NavHomeChildren";
 import useScrollToVisible from "../hooks/useScrollToVisible";
+import usePageDocTitle from "../hooks/usePageDocTitle";
 
 const HomePage = () => {
+  usePageDocTitle("Twitter © || Home");
   const auth = useAuth();
 
   // State to manage the feed data
@@ -39,7 +41,7 @@ const HomePage = () => {
         <section className="w-full md:w-[60%] border-r border-l border-gray-700">
           {/* Sticky Navigation Section */}
           <div
-            className={`sticky top-1 transition-all duration-500 ${
+            className={`sticky top-1 transition-all duration-500  border-b border-gray-700 ${
               isVisible
                 ? "opacity-100 translate-y-0 backdrop-blur-2xl bg-opacity-80"
                 : "opacity-0 -translate-y-full"

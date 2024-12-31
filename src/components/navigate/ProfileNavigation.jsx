@@ -24,7 +24,7 @@ const ProfileNavigation = () => {
           return (
             <li key={route} className="w-full text-center">
               <Link
-                className={`block text-center py-3 px-4 ${
+                className={`block text-center py-3 px-4${
                   isActive
                     ? "border-b-4 rounded-b-md border-primary rounded-md bg-linkColor"
                     : "hover:bg-linkColor rounded-md"

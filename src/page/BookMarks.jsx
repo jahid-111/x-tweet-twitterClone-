@@ -1,6 +1,8 @@
 import { Link } from "react-router-dom";
+import usePageDocTitle from "../hooks/usePageDocTitle";
 
 const BookMarks = () => {
+  usePageDocTitle("Twitter © || BookMarks (404)");
   return (
     <div className=" h-screen flex flex-col justify-center items-center w-full">
       <h5 className=" text-2xl bg-orange-500 p-5 cursor-not-allowed">

@@ -7,8 +7,10 @@ import SearchForm from "../../components/form/SearchForm";
 import Subscription from "../../components/extra/Subscription";
 import ProfileIntro from "../../components/userComponents/ProfileIntro";
 import BackButtonRouter from "../../components/navigate/BackButtonRouter";
+import usePageDocTitle from "../../hooks/usePageDocTitle";
 
 const ProfileLayout = () => {
+  usePageDocTitle("Twitter © || Profile-Mohd");
   return (
     <main className="flex w-full gap-4">
       <section className="w-full md:w-[60%] border-l border-r border-gray-700">
