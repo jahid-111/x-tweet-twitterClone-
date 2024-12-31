@@ -1,4 +1,3 @@
-import { useState } from "react";
 import Subscription from "../components/extra/Subscription";
 import FeedCard from "../components/feed-card/FeedCard";
 import SearchForm from "../components/form/SearchForm";
@@ -11,6 +10,8 @@ import useInfiniteScroll from "../hooks/useInfiniteScroll";
 import NavigationHome from "../components/navigate/NavHomeChildren";
 import useScrollToVisible from "../hooks/useScrollToVisible";
 import usePageDocTitle from "../hooks/usePageDocTitle";
+import { useState } from "react";
+import { Link } from "react-router-dom";
 
 const HomePage = () => {
   usePageDocTitle("Twitter © || Home");
@@ -34,6 +35,13 @@ const HomePage = () => {
   const { isFetching, resetFetching } = useInfiniteScroll(fetchMoreFeedData);
   const { isVisible } = useScrollToVisible();
 
+  // Sample user data for FollowCard
+  const users = [
+    { name: "Mohd. Jahidul Islam", title: "Full-Stack Developer" },
+    { name: "Jane Doe", title: "Developer" },
+    { name: "John Smith", title: "Designer" },
+  ];
+
   return (
     <div className="w-full flex mx-auto">
       {/* Sticky Sidebar Section */}
@@ -41,7 +49,7 @@ const HomePage = () => {
         <section className="w-full md:w-[60%] border-r border-l border-gray-700">
           {/* Sticky Navigation Section */}
           <div
-            className={`sticky top-1 transition-all duration-500  border-b border-gray-700 ${
+            className={`sticky top-1 transition-all duration-500 border-b border-gray-700 ${
               isVisible
                 ? "opacity-100 translate-y-0 backdrop-blur-2xl bg-opacity-80"
                 : "opacity-0 -translate-y-full"
@@ -66,8 +74,31 @@ const HomePage = () => {
           </div>
           <Subscription />
           <div className="sticky top-14">
-            <TrendingCard classCustom="border border-gray-700 my-4 rounded-xl overflow-hidden" />
-            <FollowCard classCustom="border border-gray-700 my-4 rounded-xl" />
+            {/* TRENDING Data Sample */}
+            <div className="border border-gray-700 my-4 rounded-xl overflow-hidden">
+              <p className="my-2 px-3 text-2xl font-semibold">
+                What’s happening!
+              </p>
+              {[...Array(3)].map((_, i) => (
+                <TrendingCard key={i} />
+              ))}
+            </div>
+
+            {/* FOLLOWING Data Sample */}
+            <div className="border border-gray-700 my-4 rounded-xl">
+              <h3 className="text-2xl mt-3 font-semibold mb-2 px-3">
+                Who to follow
+              </h3>
+              {users.map((user, i) => (
+                <FollowCard key={i} id={i} user={user} />
+              ))}
+              <Link
+                to="following"
+                className="ms-4 text-xl text-gray-400 hover:text-blue-500"
+              >
+                More...e
+              </Link>
+            </div>
             <DeveloperIntro />
           </div>
         </aside>

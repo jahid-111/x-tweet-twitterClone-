@@ -31,6 +31,11 @@ const FollowPage = () => {
   // Use the infinite scroll hook
   const { isFetching, resetFetching } = useInfiniteScroll(fetchMoreFeedData);
   const { isVisible } = useScrollToVisible();
+  const users = [
+    { name: "Mohd. Jahidul Islam", title: "Full-Stack Developer" },
+    { name: "Jane Doe", title: "Developer" },
+    { name: "John Smith", title: "Designer" },
+  ];
 
   return (
     <div className="w-full flex mx-auto">
@@ -60,8 +65,23 @@ const FollowPage = () => {
           </div>
           <Subscription />
           <div className="sticky top-14">
-            <TrendingCard classCustom="border border-gray-700 my-4 rounded-xl overflow-hidden" />
-            <FollowCard classCustom="border border-gray-700 my-4 rounded-xl" />
+            <div className="border border-gray-700 my-4 rounded-xl overflow-hidden">
+              <p className="my-2 px-3 text-2xl font-semibold">
+                What’s happening!
+              </p>
+              {[...Array(3)].map((_, i) => (
+                <TrendingCard key={i} />
+              ))}
+            </div>
+
+            <div className="border border-gray-700 my-4 rounded-xl">
+              <h3 className="text-2xl mt-3 font-semibold mb-2 px-3">
+                Who to follow
+              </h3>
+              {users.map((user, i) => (
+                <FollowCard key={i} id={i} user={user} />
+              ))}
+            </div>
             <DeveloperIntro />
           </div>
         </aside>

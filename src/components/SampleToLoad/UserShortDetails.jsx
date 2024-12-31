@@ -1,4 +1,3 @@
-import React from "react";
 import ImageSmall from "../images/ImageSmall";
 
 const UserShortDetails = () => {
@@ -11,9 +10,9 @@ const UserShortDetails = () => {
           <ImageSmall />
         </div>
         {/* Follow Button */}
-        <button className="bg-gray-200 hover:bg-gray-300 text-gray-900 font-medium rounded-full px-5 ">
+        {/* <button className="bg-gray-200 hover:bg-gray-300 text-gray-900 font-medium rounded-full px-5 ">
           Follow
-        </button>
+        </button> */}
       </div>
 
       {/* User Info */}
