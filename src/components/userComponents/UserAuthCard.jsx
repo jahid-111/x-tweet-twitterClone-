@@ -6,8 +6,9 @@ import useAuth from "../../hooks/useAuth";
 const UserAuthCard = () => {
   const [isDropdownOpen, setDropdownOpen] = useState(false);
   const dropdownRef = useRef(null); // Ref to detect clicks outside of the dropdown
-  const { setIsAuthenticated } = useAuth();
+  const { logout } = useAuth();
 
+  // console.log(logout)
   const navigate = useNavigate();
   const handleAuthButtonClick = () => {
     setDropdownOpen((prevState) => !prevState); // Toggle dropdown visibility
@@ -21,8 +22,7 @@ const UserAuthCard = () => {
     } else if (action === "logout") {
       const isConfirmed = window.confirm("Are you sure you want to log out?");
       if (isConfirmed) {
-        console.log("out");
-        setIsAuthenticated(false);
+        logout();
         navigate("/auth");
       }
     }

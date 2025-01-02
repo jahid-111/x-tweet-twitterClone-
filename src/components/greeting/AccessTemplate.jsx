@@ -43,7 +43,6 @@ const AccessTemplate = () => {
 
   return (
     <div className="flex flex-col justify-start">
-      Just
       <div>
         <h1 className="text-3xl md:text-4xl xl:text-6xl font-bold text-start text-gray-100">
           Happening now

@@ -1,47 +1,73 @@
 import { useState } from "react";
-import { Router } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import clientApi from "../../../services/axiosAPI_Config";
 
 const LoginForm = () => {
+  const navigate = useNavigate();
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
+    e.preventDefault(); // Prevent form default behavior
     const form = e.currentTarget;
     const { email, password } = Object.fromEntries(new FormData(form));
 
+    // Input Validation
+    if (!email || !password) {
+      setMessage("Please provide both email and password.");
+      return;
+    }
+
+    const isValidEmail = (email) => /\S+@\S+\.\S+/.test(email);
+    if (!isValidEmail(email)) {
+      setMessage("Please enter a valid email address.");
+      return;
+    }
+
     try {
-      setLoading(true);
-      const response = await fetch(
-        // `${process.env.NEXT_PUBLIC_API_LOCAL}/auth/signin`,
-        `http://localhost:8000/api/auth/signin`,
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ email, password }),
-          credentials: "include",
-        }
-      );
+      setLoading(true); // Start loading state
 
-      const data = await response.json();
+      // Send POST request with form data
+      const response = await clientApi.post("auth/signin", { email, password });
 
-      // console.log("Success ✔️✔️✔️", data);
-
-      // console.log(data)
       if (response.status === 200) {
-        setLoading(null);
-        Router.push("/");
-        console.log(data);
+        // Handle success response
+        setMessage("Login successful!");
+        // Extract the token from the Authorization header
+        const token = response.headers.authorization?.split(" ")[1]; // Split and get the token
+
+        // Check if token exists before setting it
+        if (token) {
+          localStorage.setItem("token", token);
+        } else {
+          console.error("Token not found in response headers.");
+        }
+
+        // Navigate to the home page
+        navigate("/");
       } else if (response.status === 401) {
-        setMessage(data.message);
+        // Handle unauthorized response
+        setMessage(
+          response.data.message ||
+            "Unauthorized. Please check your credentials."
+        );
       } else {
-        setMessage("Unexpected response from the server.");
+        // Handle unexpected server responses
+        setMessage(
+          response.data.message || "Unexpected response from the server."
+        );
       }
     } catch (error) {
-      console.log(error);
-      setMessage("An unexpected error occurred.");
+      console.error("Error during login:", error);
+      if (error.response && error.response.data) {
+        setMessage(
+          error.response.data.message || "An error occurred during login."
+        );
+      } else {
+        setMessage("Unable to connect to the server. Please try again later.");
+      }
     } finally {
-      setLoading(false);
+      setLoading(false); // End loading state
     }
   };
 
@@ -75,7 +101,11 @@ const LoginForm = () => {
 
         <div className="mt-8 text-center">
           {message && (
-            <div className="text-red-500 text-center my-4 font-semibold text-sm">
+            <div
+              className={`text-center my-4 font-semibold text-sm ${
+                message.includes("success") ? "text-green-500" : "text-red-500"
+              }`}
+            >
               {message}
             </div>
           )}
