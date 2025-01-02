@@ -2,20 +2,48 @@ import { Link } from "react-router-dom";
 import loginMethods from "../../utils/loginMethod";
 
 const AccessTemplate = () => {
-  const handleLogin = async (clickName) => {
+  const handleSocialLogin = async (clickName) => {
     const loginMethod = loginMethods[clickName] || loginMethods.default;
     try {
       const user = await loginMethod();
-      // console.log(user);
-      // if (user) console.log("Logged in user:", user);
+
+      if (user) {
+        const providerData = user.providerData[0] || {};
+        const { displayName, email, photoURL, providerId, uid } = providerData;
+
+        console.log(
+          "Logged in user:",
+          displayName,
+          email,
+          photoURL,
+          providerId,
+          uid
+        );
+
+        // Send user data to the backend
+        await fetch("http://localhost:8000/api/auth/social", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            displayName,
+            email,
+            photoURL,
+            providerId,
+            uid,
+          }),
+        });
+      }
     } catch (error) {
-      console.error(error.message);
-      alert(error.message);
+      console.error("Login Error:", error.message);
+      alert("Login failed. Please try again.");
     }
   };
 
   return (
     <div className="flex flex-col justify-start">
+      Just
       <div>
         <h1 className="text-3xl md:text-4xl xl:text-6xl font-bold text-start text-gray-100">
           Happening now
@@ -29,14 +57,14 @@ const AccessTemplate = () => {
         {/* Sign in Methods */}
         <div className="flex flex-col gap-2 ">
           <button
-            onClick={() => handleLogin("google")}
+            onClick={() => handleSocialLogin("google")}
             className="border rounded-full bg-white text-gray-900 font-semibold text-sm py-2 w-full mx-auto sm:px-10 hover:bg-gray-100"
           >
             Sign up with Google
           </button>
 
           <button
-            onClick={() => handleLogin("apple")}
+            onClick={() => handleSocialLogin("apple")}
             className="border rounded-full bg-white text-gray-900 font-semibold text-sm py-2 w-full mx-auto sm:px-10 hover:bg-gray-100"
           >
             Sign up with Apple

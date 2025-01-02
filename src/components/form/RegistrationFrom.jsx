@@ -1,47 +1,122 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { monthsForSignup } from "../../utils/userIconStaticData";
+import axios from "axios";
 
 function RegistrationForm() {
-  const router = useNavigate();
+  const navigate = useNavigate();
   const [errorMessage, setErrorMessage] = useState("");
   const [loading, setLoading] = useState(false);
+
+  //   e.preventDefault();
+  //   const form = e.currentTarget;
+  //   const formData = new FormData(form);
+  //   const { userName, email, password, birthOfDay, birthOfMonth, birthOfYear } =
+  //     Object.fromEntries(formData);
+
+  //   // console.log("Parsed Form D 52ata:", {
+  //   //   userName,
+  //   //   email,
+  //   //   password,
+  //   //   birthOfDay,
+  //   //   birthOfMonth,
+  //   //   birthOfYear,
+  //   // });
+
+  //   const dateOfBirth = birthOfDay + birthOfMonth + birthOfYear;
+
+  //   try {
+  //     setLoading(true);
+  //     const response = await axios.post(
+  //       "http://localhost:8000/api/auth/signup",
+  //       {
+  //         userName,
+  //         email,
+  //         password,
+  //         dateOfBirth,
+  //       },
+  //       {
+  //         headers: {
+  //           "Content-Type": "application/json",
+  //         },
+  //       }
+  //     );
+  //     console.log("Response:", response.data);
+  //     setErrorMessage("");
+  //     form.reset();
+  //     router.push("/auth/signin");
+  //   } catch (error) {
+  //     console.error("Signup error:", error);
+  //     if (error.response) {
+  //       console.error(
+  //         "Error response data:",
+  //         error.response.data.keyValue.email
+  //       );
+  //       setErrorMessage(
+  //         `This ${error.response.data.keyValue.email} already exist`
+  //       );
+  //       setErrorMessage(
+  //         error.response.data.message || "Validation failed. Please try again."
+  //       );
+  //     } else {
+  //       setErrorMessage("An unexpected error occurred.");
+  //     }
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // };
   const handleSubmit = async (e) => {
     e.preventDefault();
     const form = e.currentTarget;
-    const { name, email, password, birthOfDay, birthOfMonth, birthOfYear } =
-      Object.fromEntries(new FormData(form));
+    const formData = new FormData(form);
+    const { userName, email, password, birthOfDay, birthOfMonth, birthOfYear } =
+      Object.fromEntries(formData);
+
+    if (
+      !userName ||
+      !email ||
+      !password ||
+      !birthOfDay ||
+      !birthOfMonth ||
+      !birthOfYear
+    ) {
+      setErrorMessage("All fields are required.");
+      return;
+    }
+
+    const dateOfBirth = `${birthOfYear}-${birthOfMonth.padStart(
+      2,
+      "0"
+    )}-${birthOfDay.padStart(2, "0")}`;
 
     try {
       setLoading(true);
-      const response = await fetch("/api/auth/signup", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          name,
+      const response = await axios.post(
+        "http://localhost:8000/api/auth/signup",
+        {
+          userName,
           email,
           password,
-          birthOfDay,
-          birthOfMonth,
-          birthOfYear,
-        }),
-      });
+          dateOfBirth,
+        }
+      );
 
-      if (!response.ok) {
-        const errorData = await response.json();
-        setErrorMessage(errorData.message);
-      } else {
-        const data = await response.json();
-        setErrorMessage("");
-        setErrorMessage(data.message);
-        form.reset();
-        router.push("/auth/signin");
-      }
+      // console.log("Response:", response.data);
+      setErrorMessage("");
+      form.reset();
+      navigate("/auth/signin");
     } catch (error) {
-      console.error("Signup error:", error);
-      setErrorMessage("An unexpected error occurred.");
+      // console.error("Signup error:", error);
+      if (error.response?.data?.keyValue?.email) {
+        setErrorMessage(
+          `The email ${error.response.data.keyValue.email} already exists.`
+        );
+      } else {
+        setErrorMessage(
+          error.response?.data?.message ||
+            "An unexpected error occurred. Please try again."
+        );
+      }
     } finally {
       setLoading(false);
     }
@@ -55,8 +130,8 @@ function RegistrationForm() {
         <div>
           <input
             type="text"
-            name="name"
-            id="name"
+            name="userName"
+            id="userName"
             className=" block space-y-3 my-6 w-full p-3 bg-transparent border border-gray-700 rounded-md"
             placeholder="Name"
           />
