@@ -9,7 +9,6 @@ import useAuth from "../hooks/useAuth";
 import useInfiniteScroll from "../hooks/useInfiniteScroll";
 import NavigationHome from "../components/navigate/NavHomeChildren";
 import useScrollToVisible from "../hooks/useScrollToVisible";
-import useGetFetchData from "../hooks/useGetFetchData";
 import usePageDocTitle from "../hooks/usePageDocTitle";
 import { useState } from "react";
 import { Link } from "react-router-dom";
@@ -20,8 +19,8 @@ const HomePage = () => {
 
   // State to manage the feed data
   const [feedData, setFeedData] = useState([...Array(20)]);
-  const data = useGetFetchData("tweet");
-  console.log(data);
+  // const data = useFetchGetData("tweet");
+  // console.log(data);
 
   // Callback to fetch more data
   const fetchMoreFeedData = async () => {

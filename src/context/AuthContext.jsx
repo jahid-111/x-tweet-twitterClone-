@@ -11,31 +11,31 @@ const AuthProvider = ({ children }) => {
   });
 
   // console.log(isAuthenticated)
-  // UseEffect to verify token validity on component mount
-  useEffect(() => {
-    async function verifyToken() {
-      const token = localStorage.getItem("token");
-      if (token) {
-        try {
-          // Send a request to a protected route to verify token validity
-          const response = await clientApi.get("/verify", {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          });
+  // // UseEffect to verify token validity on component mount
+  // useEffect(() => {
+  //   async function verifyToken() {
+  //     const token = localStorage.getItem("token");
+  //     if (token) {
+  //       try {
+  //         // Send a request to a protected route to verify token validity
+  //         const response = await clientApi.get("/verify", {
+  //           headers: {
+  //             Authorization: `Bearer ${token}`,
+  //           },
+  //         });
 
-          // If the response is successful, mark user as authenticated
-          if (response.status === 200) {
-            setIsAuthenticated(true);
-          }
-        } catch (error) {
-          // console.log("Token verification failed", error);
-          setIsAuthenticated(false); // If token is invalid, set as unauthenticated
-        }
-      }
-    }
-    verifyToken();
-  }, []); // Run only on component mount
+  //         // If the response is successful, mark user as authenticated
+  //         if (response.status === 200) {
+  //           setIsAuthenticated(true);
+  //         }
+  //       } catch (error) {
+  //         // console.log("Token verification failed", error);
+  //         setIsAuthenticated(false); // If token is invalid, set as unauthenticated
+  //       }
+  //     }
+  //   }
+  //   verifyToken();
+  // }, []); // Run only on component mount
 
   // Login function that stores token
   const login = (token) => {

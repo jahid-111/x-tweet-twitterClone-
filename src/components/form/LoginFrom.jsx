@@ -11,64 +11,8 @@ const LoginForm = () => {
     e.preventDefault(); // Prevent form default behavior
     const form = e.currentTarget;
     const { email, password } = Object.fromEntries(new FormData(form));
-
-    // Input Validation
-    if (!email || !password) {
-      setMessage("Please provide both email and password.");
-      return;
-    }
-
-    const isValidEmail = (email) => /\S+@\S+\.\S+/.test(email);
-    if (!isValidEmail(email)) {
-      setMessage("Please enter a valid email address.");
-      return;
-    }
-
-    try {
-      setLoading(true); // Start loading state
-
-      // Send POST request with form data
-      const response = await clientApi.post("auth/signin", { email, password });
-
-      if (response.status === 200) {
-        // Handle success response
-        setMessage("Login successful!");
-        // Extract the token from the Authorization header
-        const token = response.headers.authorization?.split(" ")[1]; // Split and get the token
-
-        // Check if token exists before setting it
-        if (token) {
-          localStorage.setItem("token", token);
-        } else {
-          console.error("Token not found in response headers.");
-        }
-
-        // Navigate to the home page
-        navigate("/");
-      } else if (response.status === 401) {
-        // Handle unauthorized response
-        setMessage(
-          response.data.message ||
-            "Unauthorized. Please check your credentials."
-        );
-      } else {
-        // Handle unexpected server responses
-        setMessage(
-          response.data.message || "Unexpected response from the server."
-        );
-      }
-    } catch (error) {
-      console.error("Error during login:", error);
-      if (error.response && error.response.data) {
-        setMessage(
-          error.response.data.message || "An error occurred during login."
-        );
-      } else {
-        setMessage("Unable to connect to the server. Please try again later.");
-      }
-    } finally {
-      setLoading(false); // End loading state
-    }
+    localStorage.setItem("token", "hardcoreToken");
+    window.location.replace("/"); // This will reload the page
   };
 
   return (
@@ -81,6 +25,7 @@ const LoginForm = () => {
             type="email"
             name="email"
             id="email"
+            value="login.demo@mail.com"
             className="w-full p-3 bg-transparent border border-gray-700 rounded-md"
             placeholder="Email or Phone"
             required
@@ -93,6 +38,7 @@ const LoginForm = () => {
             type="password"
             name="password"
             id="password"
+            value="12345678"
             className="w-full p-3 bg-transparent border border-gray-700 rounded-md"
             placeholder="Password"
             required
