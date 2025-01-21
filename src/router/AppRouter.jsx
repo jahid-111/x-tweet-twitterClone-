@@ -31,8 +31,11 @@ import ArticlePage from "../page/children-page/profile/ArticlesProfilePage";
 import MediaPage from "../page/children-page/profile/MediaProfilePage";
 // Pages - DYNAMIC
 import StatusPage from "../page/dynamic-pge/StatusPage";
+import useAuth from "../hooks/useAuth";
 
 const AppRouter = () => {
+  const { isAuthenticated } = useAuth();
+  console.log(isAuthenticated);
   return (
     <Routes>
       <Route path="/" element={<RootLayOut />}>

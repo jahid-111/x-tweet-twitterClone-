@@ -4,7 +4,9 @@ import useAuth from "../hooks/useAuth";
 
 const AuthRouter = () => {
   const { isAuthenticated } = useAuth();
-  console.log("Root Auth Check =>", isAuthenticated);
+  // console.log(isAuthenticated);
+  // console.log("Root Auth Check =>", isAuthenticated);
+
   return isAuthenticated ? <AppRouter /> : <PublicRouter />;
 };
 
