@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import clientApi from "../../../services/axiosAPI_Config";
+import clientApi from "../../../services/axiosAPI_Config"; // Assuming axios config is set here
 
 const LoginForm = () => {
   const navigate = useNavigate();
@@ -11,8 +11,31 @@ const LoginForm = () => {
     e.preventDefault(); // Prevent form default behavior
     const form = e.currentTarget;
     const { email, password } = Object.fromEntries(new FormData(form));
-    localStorage.setItem("token", "hardcoreToken");
-    window.location.replace("/"); // This will reload the page
+
+    setLoading(true); // Start loading
+
+    try {
+      // Make API call to your server
+      const response = await clientApi.post("auth/signin", {
+        email,
+        password,
+      });
+
+      if (response.status === 200) {
+        const tokenData = response.data.token.tokenJwt;
+        localStorage.setItem("token", JSON.stringify(tokenData));
+
+        setMessage("Login successful!");
+        navigate("/");
+
+        console.log(response.data.token.tokenJwt);
+      }
+    } catch (error) {
+      setMessage("Login failed. Please check your credentials.");
+      console.error(error);
+    } finally {
+      setLoading(false); // Stop loading
+    }
   };
 
   return (
@@ -25,7 +48,6 @@ const LoginForm = () => {
             type="email"
             name="email"
             id="email"
-            value="login.demo@mail.com"
             className="w-full p-3 bg-transparent border border-gray-700 rounded-md"
             placeholder="Email or Phone"
             required
@@ -38,7 +60,6 @@ const LoginForm = () => {
             type="password"
             name="password"
             id="password"
-            value="12345678"
             className="w-full p-3 bg-transparent border border-gray-700 rounded-md"
             placeholder="Password"
             required
@@ -58,6 +79,7 @@ const LoginForm = () => {
           <button
             type="submit"
             className="w-full py-3 bg-blue-500 text-white font-bold rounded-full hover:bg-blue-600"
+            disabled={loading}
           >
             {loading ? "Wait for Access" : " Sign In"}
           </button>

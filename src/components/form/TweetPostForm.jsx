@@ -1,19 +1,36 @@
-"use client";
-
 import { useState } from "react";
 import PostContextIcon from "./PostContextIcon";
+import useAuthVerify from "../../hooks/API/useAuthVerify";
+import { handlePostTweet } from "../../action/handlePostTweet";
 
-const PostForm = ({ userId }) => {
+const PostForm = () => {
   const [buttonEnabled, setButtonEnabled] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
+  const [message, setMessage] = useState(null);
+  const [content, setContent] = useState("");
 
+  const { authData } = useAuthVerify("verify");
+  const authID = authData?.user?._id;
+
+  // Enable/Disable button based on content input
   const handleInputChange = (e) => {
+    setContent(e.target.value);
     setButtonEnabled(e.target.value.trim() !== "");
   };
 
+  // Handle form submission
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    if (!content.trim()) return; // Prevent submission if content is empty
+
+    const tweetData = { content, authID };
+
+    handlePostTweet(tweetData, setLoading, setContent, setMessage, alert);
+  };
+
   return (
-    <form className="w-11/12  ">
+    <form onSubmit={handleSubmit} className="w-11/12">
       {/* Content Section */}
       <div>
         <input
@@ -21,6 +38,7 @@ const PostForm = ({ userId }) => {
           name="content"
           id="content"
           autoComplete="off"
+          value={content}
           onChange={handleInputChange}
           className="w-full text-[1.2rem] text-quinaryDark font-medium bg-transparent placeholder:text-gray-400 outline-none"
           placeholder="What's Happening?!"
@@ -38,13 +56,13 @@ const PostForm = ({ userId }) => {
         </div>
       </div>
 
-      <div className=" flex justify-between items-center mt-2">
+      <div className="flex justify-between items-center mt-2">
         <PostContextIcon />
 
         {/* POST TWEET Button */}
         <button
-          disabled={!buttonEnabled || loading}
           type="submit"
+          disabled={!buttonEnabled || loading}
           className={`bg-blue-600 px-4 py-1 rounded-full ${
             !buttonEnabled || loading ? "opacity-50 cursor-not-allowed" : ""
           }`}
@@ -53,6 +71,9 @@ const PostForm = ({ userId }) => {
           {loading ? "Posting..." : "Post"}
         </button>
       </div>
+
+      {/* Display message if any */}
+      {message && <p className="text-red-500 text-sm mt-2">{message}</p>}
     </form>
   );
 };

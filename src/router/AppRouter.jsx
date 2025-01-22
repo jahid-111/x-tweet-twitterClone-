@@ -35,7 +35,7 @@ import useAuth from "../hooks/useAuth";
 
 const AppRouter = () => {
   const { isAuthenticated } = useAuth();
-  console.log(isAuthenticated);
+  // console.log(isAuthenticated);
   return (
     <Routes>
       <Route path="/" element={<RootLayOut />}>
