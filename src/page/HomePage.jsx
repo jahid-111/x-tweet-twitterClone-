@@ -18,7 +18,7 @@ const HomePage = () => {
   usePageDocTitle("Twitter © || Home");
 
   const { data, isLoading, isError } = useGetFetchData("tweet");
-  // console.log("all tweet", data.length);
+  // console.log("all tweet", data.length);  
 
   const { isVisible } = useScrollToVisible();
 

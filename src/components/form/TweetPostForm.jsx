@@ -1,17 +1,20 @@
 import { useState } from "react";
 import PostContextIcon from "./PostContextIcon";
-import useAuthVerify from "../../hooks/API/useAuthVerify";
 import { handlePostTweet } from "../../action/handlePostTweet";
+import useAuth from "../../hooks/useAuth";
 
 const PostForm = () => {
+  const { authData } = useAuth();
+
   const [buttonEnabled, setButtonEnabled] = useState(false);
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState(null);
   const [content, setContent] = useState("");
 
-  const { authData } = useAuthVerify("verify");
   const userId = authData?.user?._id;
+
   // console.log(userId);
+
   // Enable/Disable button based on content input
   const handleInputChange = (e) => {
     setContent(e.target.value);

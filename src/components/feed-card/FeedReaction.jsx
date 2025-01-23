@@ -1,8 +1,8 @@
 import { actionItems } from "../../utils/userIconStaticData";
-import useReaction from "../../hooks/API/useReaction";
+import useReactionLike from "../../hooks/API_Hooks/useReaction";
 
 const FeedReaction = ({ tweetId }) => {
-  const { reactionData, isLoading, triggerReact } = useReaction(tweetId);
+  const { reactionData, isLoading, triggerReact } = useReactionLike(tweetId);
 
   const handleReactionBy = async (e, name, tweetId) => {
     e.stopPropagation();

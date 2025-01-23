@@ -1,21 +1,21 @@
 import { useEffect, useState } from "react";
 import clientApi from "../../../services/axiosAPI_Config";
-import useAuthVerify from "./useAuthVerify";
+import useAuth from "../useAuth";
 
-export default function useReaction(tweetId) {
+export default function useReactionLike(tweetId) {
+  const { authData } = useAuth();
+
   const [reactionData, setReactionData] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
 
-  const { authData } = useAuthVerify("verify");
-  //   console.log(authData.user?._id);
   const userId = authData?.user?._id;
-  console.log("user", userId);
-  //   console.log("tweet", tweetId);
   const payload = { userId, tweetId };
+
+  // console.log(authData.user?._id);
   async function triggerReact(tweetId) {
     if (!authData.user?._id) {
-      console.error("User is not authenticated.");
+      // console.error("User is not authenticated.");
       return;
     }
 
@@ -23,12 +23,11 @@ export default function useReaction(tweetId) {
       setIsLoading(true);
       setIsError(false);
 
-      // Make the API call to like/unlike the tweet
       const res = await clientApi.put(`/tweet/${tweetId}/like`, {
         payload, // Using userId from authData
       });
 
-      setReactionData(res.data); // Update reaction data (e.g., likes, isLiked status)
+      setReactionData(res.data);
       console.log("Reaction response:", res.data);
     } catch (error) {
       setIsError(true);
