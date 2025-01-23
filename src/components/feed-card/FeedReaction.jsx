@@ -1,10 +1,10 @@
 import { actionItems } from "../../utils/userIconStaticData";
+import useReaction from "../../hooks/API/useReaction";
 
 const FeedReaction = ({ tweetId }) => {
-  // console.log(tweetId);
-  // const router = useRouteError();
+  const { reactionData, isLoading, triggerReact } = useReaction(tweetId);
 
-  function handleReactionBy(e, name, tweetId) {
+  const handleReactionBy = async (e, name, tweetId) => {
     e.stopPropagation();
     console.log(name, tweetId);
 
@@ -12,13 +12,15 @@ const FeedReaction = ({ tweetId }) => {
       // router.push(`/compose/comment-reply/${tweetId}`);
       console.log(tweetId);
     } else if (name === "like") {
-      window.alert("liked");
+      if (!isLoading) {
+        await triggerReact(); // Trigger the like reaction
+      }
     } else if (name === "repost") {
-      window.prompt("are u sure ??");
-    } else if (name == "chart") {
+      window.prompt("Are you sure?");
+    } else if (name === "chart") {
       window.alert("Oops....!! ");
     }
-  }
+  };
 
   return (
     <div className="flex items-center gap-5 justify-between w-full">
@@ -27,10 +29,13 @@ const FeedReaction = ({ tweetId }) => {
           <button
             onClick={(e) => handleReactionBy(e, item.name, tweetId)}
             className="mx-auto"
+            disabled={isLoading}
           >
             <item.icon className="h-7 w-7 my-1 rounded-full p-1 hover:bg-primary" />
           </button>
-          <p className="text-sm text-gray-500 ms-1">99</p>
+          <p className="text-sm text-gray-500 ms-1">
+            {reactionData?.likes?.length || 99}
+          </p>
         </div>
       ))}
     </div>

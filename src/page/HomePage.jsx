@@ -18,7 +18,7 @@ const HomePage = () => {
   usePageDocTitle("Twitter © || Home");
 
   const { data, isLoading, isError } = useGetFetchData("tweet");
-  console.log("all tweet", data);
+  // console.log("all tweet", data.length);
 
   const { isVisible } = useScrollToVisible();
 
@@ -47,7 +47,9 @@ const HomePage = () => {
           {/* Main Content */}
           <PostTweet />
 
-          <FeedCard />
+          {data.map((tweetPost) => (
+            <FeedCard key={tweetPost._id} tweetPost={tweetPost} />
+          ))}
         </section>
 
         {/* Right Sidebar */}

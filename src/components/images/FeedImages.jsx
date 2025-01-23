@@ -1,9 +1,9 @@
-const FeedImages = ({ tweetMain }) => {
-  // console.log("tweet", tweetMain);
+const FeedImages = ({ tweetMain, tweet }) => {
+  // console.log("tweet", tweet);
   return (
     <div className="w-full">
-      <p className="mb-2">
-        {tweetMain?.content ?? "On Development #Well done"}
+      <p className="mb-2 text-start">
+        {tweet?.content ?? "On Development #Well done"}
       </p>
       <div className="flex justify-start items-center">
         <img

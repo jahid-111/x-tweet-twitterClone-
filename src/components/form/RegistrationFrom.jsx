@@ -8,63 +8,6 @@ function RegistrationForm() {
   const [errorMessage, setErrorMessage] = useState("");
   const [loading, setLoading] = useState(false);
 
-  //   e.preventDefault();
-  //   const form = e.currentTarget;
-  //   const formData = new FormData(form);
-  //   const { userName, email, password, birthOfDay, birthOfMonth, birthOfYear } =
-  //     Object.fromEntries(formData);
-
-  //   // console.log("Parsed Form D 52ata:", {
-  //   //   userName,
-  //   //   email,
-  //   //   password,
-  //   //   birthOfDay,
-  //   //   birthOfMonth,
-  //   //   birthOfYear,
-  //   // });
-
-  //   const dateOfBirth = birthOfDay + birthOfMonth + birthOfYear;
-
-  //   try {
-  //     setLoading(true);
-  //     const response = await axios.post(
-  //       "http://localhost:8000/api/auth/signup",
-  //       {
-  //         userName,
-  //         email,
-  //         password,
-  //         dateOfBirth,
-  //       },
-  //       {
-  //         headers: {
-  //           "Content-Type": "application/json",
-  //         },
-  //       }
-  //     );
-  //     console.log("Response:", response.data);
-  //     setErrorMessage("");
-  //     form.reset();
-  //     router.push("/auth/signin");
-  //   } catch (error) {
-  //     console.error("Signup error:", error);
-  //     if (error.response) {
-  //       console.error(
-  //         "Error response data:",
-  //         error.response.data.keyValue.email
-  //       );
-  //       setErrorMessage(
-  //         `This ${error.response.data.keyValue.email} already exist`
-  //       );
-  //       setErrorMessage(
-  //         error.response.data.message || "Validation failed. Please try again."
-  //       );
-  //     } else {
-  //       setErrorMessage("An unexpected error occurred.");
-  //     }
-  //   } finally {
-  //     setLoading(false);
-  //   }
-  // };
   const handleSubmit = async (e) => {
     e.preventDefault();
     const form = e.currentTarget;

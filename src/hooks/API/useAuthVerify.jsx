@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import axios from "axios";
 import clientApi from "../../../services/axiosAPI_Config";
 
 export default function useAuthVerify(URL) {

@@ -10,8 +10,8 @@ const PostForm = () => {
   const [content, setContent] = useState("");
 
   const { authData } = useAuthVerify("verify");
-  const authID = authData?.user?._id;
-
+  const userId = authData?.user?._id;
+  // console.log(userId);
   // Enable/Disable button based on content input
   const handleInputChange = (e) => {
     setContent(e.target.value);
@@ -24,7 +24,7 @@ const PostForm = () => {
 
     if (!content.trim()) return; // Prevent submission if content is empty
 
-    const tweetData = { content, authID };
+    const tweetData = { content, userId };
 
     handlePostTweet(tweetData, setLoading, setContent, setMessage, alert);
   };

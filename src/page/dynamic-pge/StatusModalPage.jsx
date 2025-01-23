@@ -1,15 +1,18 @@
 import FeedReaction from "../../components/feed-card/FeedReaction";
 import ImageSmall from "../../components/images/ImageSmall";
 import StatusImages from "../../components/images/StatusImages";
+import useGetFetchData from "../../hooks/useGetFetchData";
 
-const StatusModalPage = () => {
+const StatusModalPage = ({ tweetId }) => {
+  // const { id } = useParams(); // Dynamic tweet ID from URL
+  const { data, isLoading, isError } = useGetFetchData(`tweet/${tweetId}`);
+  // console.log(data);
   return (
-
     <main className="md:flex md:flex-row flex-col w-full gap-4">
       <section className="w-full md:w-[75%] border-l border-r border-gray-700">
         <div className="px-2 md:px-28 flex flex-col justify-center items-center m-auto">
           <StatusImages />
-          <FeedReaction />
+          <FeedReaction tweetId={tweetId} />
         </div>
       </section>
 
@@ -25,14 +28,13 @@ const StatusModalPage = () => {
 
           <p className="text-justify mb-2">
             AI experts are earning $200k-$335k yearly. So I built 𝟱𝟴+ 𝗚𝗣𝗧-𝟰
-            𝗣𝗿𝗼𝗺𝗽𝘁𝘀 for you. You will get: - 5+ Chapters - 58+ AI Prompts -
-            58+ New AI Tools And for 24 hrs, its 100% FREE! To get it: 1. Like
-            and Repost 2. Reply AI 3. Follow me (so that I can DM)
+            𝗣𝗿𝗼𝗺𝗽𝘁𝘀 for you. You will get: - 5+ Chapters - 58+ AI Prompts - 58+
+            New AI Tools And for 24 hrs, its 100% FREE! To get it: 1. Like and
+            Repost 2. Reply AI 3. Follow me (so that I can DM)
           </p>
         </div>
       </aside>
     </main>
-
   );
 };
 

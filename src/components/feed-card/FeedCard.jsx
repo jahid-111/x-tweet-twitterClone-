@@ -8,9 +8,10 @@ import { useState } from "react";
 import Modal from "../fallback-components/Modal";
 import StatusModalPage from "../../page/dynamic-pge/StatusModalPage";
 
-const FeedCard = ({ tweet, singleTweet }) => {
+const FeedCard = ({ tweet, tweetPost, singleTweet }) => {
   const [isOpenModal, setIsOpenModal] = useState(false);
   const navigate = useNavigate();
+  // console.log(tweetPost._id);
 
   const dataTweet = tweet ?? singleTweet;
   const tweetId = dataTweet?._id;
@@ -41,25 +42,25 @@ const FeedCard = ({ tweet, singleTweet }) => {
       {/* Tweet Content */}
       <div className="w-11/12">
         {/* Tweet Author Information */}
-        <FeedAuthor author={dataTweet} />
+        <FeedAuthor author={tweetPost?.author} />
 
         {/* Tweet Main Content */}
         <button onClick={handleModal}>
           {" "}
           {/* Toggling modal on click */}
-          <FeedImages images={dataTweet?.images} />
+          <FeedImages tweet={tweetPost} images={dataTweet?.images} />
         </button>
 
         {/* Modal */}
         {isOpenModal && (
           <Modal onClose={() => setIsOpenModal(false)}>
-            <StatusModalPage tweetId={tweetId} />
+            <StatusModalPage tweetId={tweetPost?._id} />
           </Modal>
         )}
 
         {/* User Actions */}
         <div className="flex gap-5 justify-between items-center my-1 w-full">
-          <FeedReaction reactions={dataTweet?.reactions} />
+          <FeedReaction tweetId={tweetPost?._id} />
           <FeedMarkShare tweetId={tweetId} />
         </div>
       </div>

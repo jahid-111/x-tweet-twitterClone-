@@ -4,9 +4,9 @@ const FeedAuthor = ({ author }) => {
   // console.log("author FeedUpdate", author.updatedAt);
 
   // Handle formatted date safely
-  const formattedDate = author?.updatedAt
-    ? formateTimeStamps(author.updatedAt)
-    : "Once a  time";
+  // const formattedDate = author?.updatedAt
+  //   ? formateTimeStamps(author.updatedAt)
+  //   : "Once a  time";
 
   return (
     <div className="flex gap-2">
@@ -22,7 +22,7 @@ const FeedAuthor = ({ author }) => {
       <span className="text-gray-500"> || </span>
 
       {/* Display formatted date */}
-      <p className="text-gray-600">{formattedDate}</p>
+      {/* <p className="text-gray-600">{formattedDate}</p> */}
     </div>
   );
 };

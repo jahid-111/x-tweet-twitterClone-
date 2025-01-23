@@ -1,4 +1,3 @@
-import React from "react";
 import ImageSmall from "../images/ImageSmall";
 import PostForm from "../form/TweetPostForm";
 
