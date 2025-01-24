@@ -11,7 +11,7 @@ import StatusModalPage from "../../page/dynamic-pge/StatusModalPage";
 const FeedCard = ({ tweet, tweetPost, singleTweet }) => {
   const [isOpenModal, setIsOpenModal] = useState(false);
   const navigate = useNavigate();
-  // console.log(tweetPost._id);
+  // console.log(tweetPost);
 
   const dataTweet = tweet ?? singleTweet;
   const tweetId = dataTweet?._id;
@@ -60,7 +60,7 @@ const FeedCard = ({ tweet, tweetPost, singleTweet }) => {
 
         {/* User Actions */}
         <div className="flex gap-5 justify-between items-center my-1 w-full">
-          <FeedReaction tweetId={tweetPost?._id} />
+          <FeedReaction tweet={tweetPost} />
           <FeedMarkShare tweetId={tweetId} />
         </div>
       </div>
