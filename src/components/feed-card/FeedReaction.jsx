@@ -6,6 +6,7 @@ import TwitterReplyBox from "./reaction/TwitterReply";
 import { useState } from "react";
 import { BiRepost } from "react-icons/bi";
 import clientApi from "../../../services/axiosAPI_Config";
+import Retweet from "./reaction/Retweet";
 
 const FeedReaction = ({ tweet }) => {
   const [isToggle, setIsToggle] = useState(false); // Modal toggle state
@@ -15,38 +16,9 @@ const FeedReaction = ({ tweet }) => {
     e.stopPropagation();
     setIsToggle(true); // Open the modal
   };
-  console.log(tweet?.retweets);
+  //   console.log(tweet?.retweets);
   const closeModal = () => {
     setIsToggle(false); // Close the modal
-  };
-
-  const repostHandler = (e, id) => {
-    e.stopPropagation();
-    console.log(id);
-    const payload = {
-      userId: authData.authData.user._id,
-      tweetId: id,
-    };
-
-    console.log(payload);
-    const confirmed = window.confirm("Are you sure you want to repost?");
-
-    if (confirmed) {
-      async function reTweet(tweetId) {
-        try {
-          const res = await clientApi.post(`tweet/${tweetId}/retweet`, {
-            payload,
-          });
-          console.log("ReTweet response:", res);
-        } catch (error) {
-          console.error("Error during repost:", error);
-        }
-      }
-
-      reTweet(id);
-    } else {
-      console.log("User canceled the repost.");
-    }
   };
 
   return (
@@ -63,17 +35,8 @@ const FeedReaction = ({ tweet }) => {
           </div>
         </button>
 
-        <button
-          onClick={(e) => repostHandler(e, tweet._id)}
-          className="mx-auto"
-        >
-          <div className=" flex justify-center items-center">
-            <BiRepost className="h-7 w-7 my-1 rounded-full p-1 hover:bg-primary" />
-            <p>{tweet?.retweets.length}</p>
-          </div>
-        </button>
+        <Retweet tweet={tweet} auth={authData} />
 
-        {/* Like Button */}
         <Like tweet={tweet} auth={authData} />
       </div>
       {/* Modal with TwitterReplyBox */}
