@@ -4,8 +4,8 @@ import clientApi from "../../../../services/axiosAPI_Config";
 
 export default function Like({ tweet, auth }) {
   const [liked, setLiked] = useState({
-    isLiked: tweet.likes.includes(auth?.authData?.user?._id),
-    likeCount: tweet.likes.length,
+    isLiked: tweet?.likes.includes(auth?.authData?.user?._id),
+    likeCount: tweet?.likes.length,
   });
 
   // console.log("Liked state:", liked); // Logs the current state

@@ -1,19 +1,15 @@
 import { useEffect, useRef, useCallback, useState } from "react";
 import { createPortal } from "react-dom";
 import { HiOutlineXMark } from "react-icons/hi2";
-// import { useNavigate } from "react-router-dom";
 
 const Modal = ({ children, modalTitle, onClose }) => {
-  // const navigate = useNavigate(); // React Router's navigation hook
   const modalRef = useRef(null);
   const [mounted, setMounted] = useState(false);
 
-  // Close the modal and navigate back
   const onHide = useCallback(() => {
     if (onClose) {
-      onClose(false); // Properly call the onClose function
+      onClose(false); // Call the onClose function properly
     }
-    // navigate(-1); // Navigate back just hide
   }, [onClose]);
 
   // Close modal on Escape key press
@@ -42,18 +38,29 @@ const Modal = ({ children, modalTitle, onClose }) => {
     };
   }, [handleKeyDown]);
 
+  // Stop click propagation on modal content
+  const handleModalContentClick = (e) => {
+    e.stopPropagation();
+  };
+
   // If the component isn't mounted, return null
   if (!mounted) return null;
 
   return createPortal(
-    <div>
+    <div
+      onClick={handleModalContentClick} // Prevent clicks inside from closing modal
+    >
       <dialog
         ref={modalRef}
         onClose={onHide}
         aria-modal="true"
         className="fixed inset-0 flex items-center justify-center h-full w-full bg-gray-800 bg-opacity-50"
+        onClick={onHide} // Close modal if clicking outside content
       >
-        <div className="h-auto w-auto shadow-gray-800 bg-black text-gray-200 p-2 rounded-lg shadow-xl">
+        <div
+          className="h-auto w-auto shadow-gray-800 bg-black text-gray-200 p-2 rounded-lg shadow-xl"
+          onClick={handleModalContentClick} // Prevent clicks inside from closing modal
+        >
           {/* Modal Header */}
           <div className="flex justify-between items-center mb-4">
             <h3 className="text-lg font-semibold">{modalTitle}</h3>
@@ -66,7 +73,7 @@ const Modal = ({ children, modalTitle, onClose }) => {
             </button>
           </div>
           {/* Modal Content */}
-          <div>{children}</div>
+          {children}
         </div>
       </dialog>
     </div>,
@@ -75,4 +82,3 @@ const Modal = ({ children, modalTitle, onClose }) => {
 };
 
 export default Modal;
-
