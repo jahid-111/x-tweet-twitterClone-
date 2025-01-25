@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 
 export default function TwitterReplyBox({ tweet }) {
   const author = tweet?.author;
+  console.log(author.userName);
   const [loading, setLoading] = useState(false);
   const [content, setContent] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
@@ -82,8 +83,8 @@ export default function TwitterReplyBox({ tweet }) {
           autoComplete="off"
           value={content}
           onChange={handleInputChange}
-          className="w-full text-[1.2rem] text-quinaryDark font-medium bg-transparent placeholder:text-gray-400 outline-none"
-          placeholder="What's Happening?!"
+          className="w-full text-[1.2rem] text-quinaryDark font-medium bg-transparent placeholder:text-gray-500 outline-none"
+          placeholder={`Whats Your thing about "${author.userName}" tweet`}
           aria-label="Post Content"
         />
         {errorMessage && <p className="text-red-500 text-sm">{errorMessage}</p>}

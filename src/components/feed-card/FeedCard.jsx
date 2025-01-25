@@ -59,7 +59,12 @@ const FeedCard = ({ tweet, tweetPost, singleTweet }) => {
         )}
 
         {/* User Actions */}
-        <div className="flex gap-5 justify-between items-center my-1 w-full">
+        <div
+          onClick={(e) => {
+            e.stopPropagation(); // Properly stops the event propagation
+          }}
+          className="flex gap-5 justify-between items-center my-1 w-full border"
+        >
           <FeedReaction tweet={tweetPost} />
           <FeedMarkShare tweetId={tweetId} />
         </div>
