@@ -10,32 +10,17 @@ import DeveloperIntro from "../../../components/extra/DeveloperIntro";
 import NavigationHome from "../../../components/navigate/NavHomeChildren";
 import useScrollToVisible from "../../../hooks/useScrollToVisible";
 import usePageDocTitle from "../../../hooks/usePageDocTitle";
+import useGetFetchData from "../../../hooks/useGetFetchData";
 
 const FollowPage = () => {
   const auth = useAuth();
 
-  // State to manage the feed data
-  const [feedData, setFeedData] = useState([...Array(20)]);
-
-  // Callback to fetch more data
-  const fetchMoreFeedData = async () => {
-    setTimeout(() => {
-      setFeedData((prev) => [
-        ...prev,
-        ...Array.from({ length: 5 }, (_, i) => prev.length + i + 1),
-      ]);
-      resetFetching();
-    }, 1000); // Simulate a network delay
-  };
+  const { data, isLoading, isError } = useGetFetchData("user");
+  console.log(data[0]);
 
   // Use the infinite scroll hook
-  const { isFetching, resetFetching } = useInfiniteScroll(fetchMoreFeedData);
+  // const { isFetching, resetFetching } = useInfiniteScroll(fetchMoreFeedData);
   const { isVisible } = useScrollToVisible();
-  const users = [
-    { name: "Mohd. Jahidul Islam", title: "Full-Stack Developer" },
-    { name: "Jane Doe", title: "Developer" },
-    { name: "John Smith", title: "Designer" },
-  ];
 
   return (
     <div className="w-full flex mx-auto">
@@ -52,10 +37,10 @@ const FollowPage = () => {
           >
             <NavigationHome />
           </div>
-          {feedData.map((_, index) => (
-            <FollowCard key={index} />
+          {data.map((user, index) => (
+            <FollowCard user={user} key={index} />
           ))}
-          {isFetching && <div className="loader-infinity mx-auto my-4" />}
+          {/* {isFetching && <div className="loader-infinity mx-auto my-4" />} */}
           <div id="infinite-scroll-sentinel" className="h-3 bg-transparent" />
         </section>
 
@@ -78,9 +63,9 @@ const FollowPage = () => {
               <h3 className="text-2xl mt-3 font-semibold mb-2 px-3">
                 Who to follow
               </h3>
-              {users.map((user, i) => (
+              {/* {users.map((user, i) => (
                 <FollowCard key={i} id={i} user={user} />
-              ))}
+              ))} */}
             </div>
             <DeveloperIntro />
           </div>

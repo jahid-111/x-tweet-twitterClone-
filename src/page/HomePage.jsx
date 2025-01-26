@@ -20,16 +20,11 @@ const HomePage = () => {
 
   const { data, isLoading, isError } = useGetFetchData("tweet");
   // console.log("all tweet", data.length);
+
   const { authData } = useAuth();
   // console.log(authData);
 
   const { isVisible } = useScrollToVisible();
-
-  const users = [
-    { name: "Mohd. Jahidul Islam", title: "Full-Stack Developer" },
-    { name: "Jane Doe", title: "Developer" },
-    { name: "John Smith", title: "Designer" },
-  ];
 
   return (
     <div className="w-full flex mx-auto">
@@ -81,9 +76,9 @@ const HomePage = () => {
               <h3 className="text-2xl mt-3 font-semibold mb-2 px-3">
                 Who to follow
               </h3>
-              {users.map((user, i) => (
+              {/* {users?.map((user, i) => (
                 <FollowCard key={i} id={i} user={user} />
-              ))}
+              ))} */}
               <Link
                 to="following"
                 className="ms-4 text-xl text-gray-400 hover:text-blue-500"

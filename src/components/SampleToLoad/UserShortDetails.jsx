@@ -1,24 +1,22 @@
 import ImageSmall from "../images/ImageSmall";
 
-const UserShortDetails = () => {
+const UserShortDetails = ({ user }) => {
   //on click action from Parent Link : /profile/id
+
+  // console.log(user);
   return (
     <div className=" w-52 h-auto">
       <div className="flex justify-between items-center">
         {/* User Image */}
         <div className="flex justify-center items-center">
-          <ImageSmall />
+          <ImageSmall image={user?.profileImage} />
         </div>
-        {/* Follow Button */}
-        {/* <button className="bg-gray-200 hover:bg-gray-300 text-gray-900 font-medium rounded-full px-5 ">
-          Follow
-        </button> */}
       </div>
 
       {/* User Info */}
       <div className="flex flex-col  justify-start">
-        <strong className="text-xl">Jahid</strong>
-        <small className="text-gray-400">@jahid</small>
+        <strong className="text-xl">{user?.userName}</strong>
+        <small className="text-gray-400">{user?.email}</small>
       </div>
 
       {/* Bio */}
@@ -26,8 +24,8 @@ const UserShortDetails = () => {
 
       {/* Follower Count */}
       <div className="flex justify-between items-center py-1">
-        <p className="text-sm">99 Followers</p>
-        <p className="text-sm">44 Following</p>
+        <p className="text-sm">{user?.followers.length} Followers</p>
+        <p className="text-sm"> {user?.following.length} Following</p>
       </div>
     </div>
   );
