@@ -13,10 +13,11 @@ import usePageDocTitle from "../../../hooks/usePageDocTitle";
 import useGetFetchData from "../../../hooks/useGetFetchData";
 
 const FollowPage = () => {
-  const auth = useAuth();
+  const { authData } = useAuth();
 
   const { data, isLoading, isError } = useGetFetchData("user");
-  console.log(data[0]);
+  // console.log(data[0]);
+  // console.log(authData);
 
   // Use the infinite scroll hook
   // const { isFetching, resetFetching } = useInfiniteScroll(fetchMoreFeedData);
@@ -38,7 +39,7 @@ const FollowPage = () => {
             <NavigationHome />
           </div>
           {data.map((user, index) => (
-            <FollowCard user={user} key={index} />
+            <FollowCard key={index} user={user} auth={authData} />
           ))}
           {/* {isFetching && <div className="loader-infinity mx-auto my-4" />} */}
           <div id="infinite-scroll-sentinel" className="h-3 bg-transparent" />
