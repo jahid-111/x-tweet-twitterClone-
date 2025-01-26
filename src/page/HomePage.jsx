@@ -13,12 +13,15 @@ import usePageDocTitle from "../hooks/usePageDocTitle";
 import { Link } from "react-router-dom";
 
 import useGetFetchData from "../hooks/useGetFetchData";
+import useAuth from "../hooks/useAuth";
 
 const HomePage = () => {
   usePageDocTitle("Twitter © || Home");
 
   const { data, isLoading, isError } = useGetFetchData("tweet");
-  // console.log("all tweet", data.length);  
+  // console.log("all tweet", data.length);
+  const { authData } = useAuth();
+  // console.log(authData);
 
   const { isVisible } = useScrollToVisible();
 
@@ -48,7 +51,11 @@ const HomePage = () => {
           <PostTweet />
 
           {data.map((tweetPost) => (
-            <FeedCard key={tweetPost._id} tweetPost={tweetPost} />
+            <FeedCard
+              key={tweetPost._id}
+              tweetPost={tweetPost}
+              auth={authData}
+            />
           ))}
         </section>
 
