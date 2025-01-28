@@ -1,31 +1,42 @@
+import { toast } from "react-toastify";
 import clientApi from "../../../../services/axiosAPI_Config";
 
-export default function Follow({ user, authId }) {
-  // console.log(user?._id);
-
+export default function Follow({ user, authId, isFollowing, onFollowChange }) {
   async function handleUserFollow(e, id) {
-    console.log("authID---", authId);
     e.preventDefault();
     const payload = {
       userId: authId,
-      targetId: user,
+      targetId: user._id,
     };
 
-    const response = await clientApi.put(`user/${id}/follow`, {
-      body: payload,
-    });
+    try {
+      const response = await clientApi.put(`user/${id}/follow`, payload);
 
-    console.log(response);
+      if (response.status === 200) {
+        const newFollowingStatus = !isFollowing; // Toggle following status
+        onFollowChange(newFollowingStatus); // Update the parent state
+
+        // Show success message
+        if (newFollowingStatus) {
+          toast.success("You're now following the user");
+        } else {
+          toast.warn("You unfollowed the user");
+        }
+      } else {
+        toast.error("Failed to follow/unfollow. Please try again.");
+      }
+    } catch (error) {
+      toast.error("Something went wrong. Please try again.");
+      console.error(error);
+    }
   }
 
   return (
-    <>
-      <button
-        onClick={(e) => handleUserFollow(e, user?._id)}
-        className="bg-gray-200 hover:bg-gray-300 text-gray-900 f§ont-medium rounded-full px-5 py-1"
-      >
-        Follow
-      </button>
-    </>
+    <button
+      onClick={(e) => handleUserFollow(e, user?._id)}
+      className="bg-gray-200 hover:bg-gray-300 text-gray-900 font-medium rounded-full h-8 w-24"
+    >
+      {isFollowing ? "Following" : "Follow"}
+    </button>
   );
 }

@@ -5,7 +5,6 @@ import PostTweet from "../components/tweet-post/PostTweet";
 import TrendingCard from "../components/SampleToLoad/TrendingCard";
 import FollowCard from "../components/SampleToLoad/FollowCard";
 import DeveloperIntro from "../components/extra/DeveloperIntro";
-import useInfiniteScroll from "../hooks/useInfiniteScroll";
 import NavigationHome from "../components/navigate/NavHomeChildren";
 import useScrollToVisible from "../hooks/useScrollToVisible";
 import usePageDocTitle from "../hooks/usePageDocTitle";
@@ -14,12 +13,14 @@ import { Link } from "react-router-dom";
 
 import useGetFetchData from "../hooks/useGetFetchData";
 import useAuth from "../hooks/useAuth";
+import Loading from "../components/fallback-components/Loading";
 
 const HomePage = () => {
   usePageDocTitle("Twitter © || Home");
 
-  const { data, isLoading, isError } = useGetFetchData("tweet");
-  // console.log("all tweet", data.length);
+  const { data, isLoading } = useGetFetchData("tweet");
+  const user = useGetFetchData("user");
+  // console.log("all tweet", user.isLoading);
 
   const { authData } = useAuth();
   // console.log(authData);
@@ -45,13 +46,17 @@ const HomePage = () => {
           {/* Main Content */}
           <PostTweet />
 
-          {data.map((tweetPost) => (
-            <FeedCard
-              key={tweetPost._id}
-              tweetPost={tweetPost}
-              auth={authData}
-            />
-          ))}
+          {isLoading ? (
+            <Loading />
+          ) : (
+            data.map((tweetPost) => (
+              <FeedCard
+                key={tweetPost._id}
+                tweetPost={tweetPost}
+                auth={authData}
+              />
+            ))
+          )}
         </section>
 
         {/* Right Sidebar */}
@@ -76,12 +81,17 @@ const HomePage = () => {
               <h3 className="text-2xl mt-3 font-semibold mb-2 px-3">
                 Who to follow
               </h3>
-              {/* {users?.map((user, i) => (
-                <FollowCard key={i} id={i} user={user} />
-              ))} */}
+              {user.isLoading ? (
+                <Loading />
+              ) : (
+                user.data
+                  .slice(0, 3)
+                  .slice(0, 4)
+                  ?.map((user, i) => <FollowCard key={i} id={i} user={user} />)
+              )}
               <Link
-                to="following"
-                className="ms-4 text-xl text-gray-400 hover:text-blue-500"
+                to="/following"
+                className="ms-4 text-sm text-gray-400 hover:text-blue-500"
               >
                 More...e
               </Link>

@@ -1,7 +1,4 @@
-import { useState } from "react";
 import useAuth from "../../../hooks/useAuth";
-import useInfiniteScroll from "../../../hooks/useInfiniteScroll";
-import PostTweet from "../../../components/tweet-post/PostTweet";
 import SearchForm from "../../../components/form/SearchForm";
 import Subscription from "../../../components/extra/Subscription";
 import TrendingCard from "../../../components/SampleToLoad/TrendingCard";
@@ -11,17 +8,19 @@ import NavigationHome from "../../../components/navigate/NavHomeChildren";
 import useScrollToVisible from "../../../hooks/useScrollToVisible";
 import usePageDocTitle from "../../../hooks/usePageDocTitle";
 import useGetFetchData from "../../../hooks/useGetFetchData";
+import Loading from "../../../components/fallback-components/Loading";
 
 const FollowPage = () => {
+  usePageDocTitle("Twitter © || Follow-page");
+
   const { authData } = useAuth();
-
   const { data, isLoading, isError } = useGetFetchData("user");
-  // console.log(data[0]);
-  // console.log(authData);
-
-  // Use the infinite scroll hook
-  // const { isFetching, resetFetching } = useInfiniteScroll(fetchMoreFeedData);
   const { isVisible } = useScrollToVisible();
+
+  // console.log(authData)
+  if (isError) {
+    return;
+  }
 
   return (
     <div className="w-full flex mx-auto">
@@ -38,20 +37,24 @@ const FollowPage = () => {
           >
             <NavigationHome />
           </div>
+
+          {isLoading && <Loading />}
           {data.map((user, index) => (
             <FollowCard key={index} user={user} auth={authData} />
           ))}
-          {/* {isFetching && <div className="loader-infinity mx-auto my-4" />} */}
+          {isError && <div>Error fetching data. Please try again later.</div>}
+          {/* Infinite Scroll Sentinel */}
           <div id="infinite-scroll-sentinel" className="h-3 bg-transparent" />
         </section>
 
-
+        {/* Right Sidebar */}
         <aside className="hidden md:block sm:w-[40%] border-gray-700 relative px-1">
           <div className="sticky top-1">
             <SearchForm />
           </div>
           <Subscription />
           <div className="sticky top-14">
+            {/* Trending Section */}
             <div className="border border-gray-700 my-4 rounded-xl overflow-hidden">
               <p className="my-2 px-3 text-2xl font-semibold">
                 What’s happening!
@@ -61,13 +64,15 @@ const FollowPage = () => {
               ))}
             </div>
 
+            {/* Who to Follow Section */}
             <div className="border border-gray-700 my-4 rounded-xl">
               <h3 className="text-2xl mt-3 font-semibold mb-2 px-3">
                 Who to follow
               </h3>
-              {/* {users.map((user, i) => (
-                <FollowCard key={i} id={i} user={user} />
-              ))} */}
+              {isLoading && <Loading />}
+              {data.slice(0, 3).map((user, i) => (
+                <FollowCard key={i} user={user} auth={authData} />
+              ))}
             </div>
             <DeveloperIntro />
           </div>

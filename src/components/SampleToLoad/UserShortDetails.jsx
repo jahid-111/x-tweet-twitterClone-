@@ -1,6 +1,6 @@
 import ImageSmall from "../images/ImageSmall";
 
-const UserShortDetails = ({ user }) => {
+const UserShortDetails = ({ user, followCount }) => {
   //on click action from Parent Link : /profile/id
 
   // console.log(user);
@@ -24,7 +24,7 @@ const UserShortDetails = ({ user }) => {
 
       {/* Follower Count */}
       <div className="flex justify-between items-center py-1">
-        <p className="text-sm">{user?.followers.length} Followers</p>
+        <p className="text-sm">{followCount} Followers</p>
         <p className="text-sm"> {user?.following.length} Following</p>
       </div>
     </div>
