@@ -1,11 +1,14 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import clientApi from "../../../services/axiosAPI_Config"; // Assuming axios config is set here
+import useAuth from "../../hooks/useAuth";
 
 const LoginForm = () => {
   const navigate = useNavigate();
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
+
+  const { setIsAuthenticated } = useAuth(); // Assuming setAuth is a method to update authentication state
 
   const handleSubmit = async (e) => {
     e.preventDefault(); // Prevent form default behavior
@@ -24,14 +27,15 @@ const LoginForm = () => {
       if (response.status === 200) {
         const tokenData = response.data.token.tokenJwt;
         localStorage.setItem("token", JSON.stringify(tokenData));
-
+        setIsAuthenticated(true); // Update authentication state
         setMessage("Login successful!");
-        navigate("/");
-
-        console.log(response.data.token.tokenJwt);
+        navigate("/home"); // Navigate to home page after successful login
       }
     } catch (error) {
-      setMessage("Login failed. Please check your credentials.");
+      setMessage(
+        error.response?.data?.message ||
+          "Login failed. Please check your credentials."
+      );
       console.error(error);
     } finally {
       setLoading(false); // Stop loading
@@ -51,6 +55,7 @@ const LoginForm = () => {
             className="w-full p-3 bg-transparent border border-gray-700 rounded-md"
             placeholder="Email or Phone"
             required
+            disabled={loading}
           />
         </div>
 
@@ -63,6 +68,7 @@ const LoginForm = () => {
             className="w-full p-3 bg-transparent border border-gray-700 rounded-md"
             placeholder="Password"
             required
+            disabled={loading}
           />
         </div>
 

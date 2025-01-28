@@ -31,7 +31,9 @@ import ArticlePage from "../page/children-page/profile/ArticlesProfilePage";
 import MediaPage from "../page/children-page/profile/MediaProfilePage";
 // Pages - DYNAMIC
 import StatusPage from "../page/dynamic-pge/StatusPage";
+
 import useAuth from "../hooks/useAuth";
+import PublicLayout from "../layout/PublicLayout";
 
 const AppRouter = () => {
   const { isAuthenticated } = useAuth();
@@ -40,7 +42,10 @@ const AppRouter = () => {
     <Routes>
       {/* If not authenticated, redirect to /auth */}
       {!isAuthenticated ? (
-        <Route path="*" element={<Navigate to="/auth" replace />} />
+        <>
+          <Route path="/auth" element={<PublicLayout />} />
+          <Route path="*" element={<Navigate to="/auth" replace />} />
+        </>
       ) : (
         <Route path="/" element={<RootLayOut />}>
           {/* Default Landing Page */}
@@ -78,6 +83,7 @@ const AppRouter = () => {
             <Route path="*" element={<NotFound />} />
           </Route>
           <Route path="*" element={<NotFound />} />
+          <Route path="auth" element={<Navigate to="/" replace />} />
         </Route>
       )}
     </Routes>
