@@ -1,7 +1,10 @@
 import { Outlet } from "react-router-dom";
 
 import Footer from "../components/extra/Footer";
+import useAuth from "../hooks/useAuth";
 const PublicLayout = () => {
+  const isAuthenticated = useAuth();
+  // console.log(isAuthenticated);
   return (
     <div>
       <main className="mx-auto ">

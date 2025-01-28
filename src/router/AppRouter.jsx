@@ -1,4 +1,4 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import RootLayOut from "../layout/RootLayout";
 import BookMarks from "../page/BookMarks";
 
@@ -35,46 +35,51 @@ import useAuth from "../hooks/useAuth";
 
 const AppRouter = () => {
   const { isAuthenticated } = useAuth();
-  // console.log(isAuthenticated);
+
   return (
     <Routes>
-      <Route path="/" element={<RootLayOut />}>
-        {/* Default Landing Page */}
-        <Route index element={<HomePage />} />
-        <Route path="/home" element={<HomePage />} />
-        <Route path="following" element={<FollowPage />} />
-        {/* DYNAMIC INDIVIDUAL Route */}
-        <Route path="status/:id" element={<StatusPage />} />
-        {/* -------------------------------- */}
-        <Route path="explore" element={<ExploreLayout />}>
-          <Route index element={<ExplorePage />} />
-          <Route path="for-you" element={<ExplorePage />} />
-          <Route path="trending" element={<ForYouPage />} />
-          <Route path="news" element={<NewsPage />} />
-          <Route path="sports" element={<SportPage />} />
-          <Route path="entertainment" element={<Entertainment />} />
-        </Route>
-        <Route path="notification" element={<NotificationLayout />}>
-          <Route index element={<NotificationPage />} />
-          <Route path="all-notify" element={<NotificationPage />} />
-          <Route path="verified" element={<NotifyVerifiedPage />} />
-          <Route path="mentions" element={<NotifyMentionPage />} />
-        </Route>
-        <Route path="message" element={<MessageLayout />}>
-          <Route path=":id" element={<ChatToUserPage />} />
-        </Route>
-        <Route path="bookmark" element={<BookMarks />} /> {/*OPTION PAGE*/}
-        <Route path="profile" element={<ProfileLayout />}>
-          <Route index element={<PostsProfilePage />} />
-          <Route path="posts" element={<PostsProfilePage />} />
-          <Route path="replies" element={<ReplyPage />} />
-          <Route path="highlights" element={<HighlightsPage />} />
-          <Route path="articles" element={<ArticlePage />} />
-          <Route path="media" element={<MediaPage />} />
+      {/* If not authenticated, redirect to /auth */}
+      {!isAuthenticated ? (
+        <Route path="*" element={<Navigate to="/auth" replace />} />
+      ) : (
+        <Route path="/" element={<RootLayOut />}>
+          {/* Default Landing Page */}
+          <Route index element={<HomePage />} />
+          <Route path="/home" element={<HomePage />} />
+          <Route path="following" element={<FollowPage />} />
+          {/* DYNAMIC INDIVIDUAL Route */}
+          <Route path="status/:id" element={<StatusPage />} />
+          {/* -------------------------------- */}
+          <Route path="explore" element={<ExploreLayout />}>
+            <Route index element={<ExplorePage />} />
+            <Route path="for-you" element={<ExplorePage />} />
+            <Route path="trending" element={<ForYouPage />} />
+            <Route path="news" element={<NewsPage />} />
+            <Route path="sports" element={<SportPage />} />
+            <Route path="entertainment" element={<Entertainment />} />
+          </Route>
+          <Route path="notification" element={<NotificationLayout />}>
+            <Route index element={<NotificationPage />} />
+            <Route path="all-notify" element={<NotificationPage />} />
+            <Route path="verified" element={<NotifyVerifiedPage />} />
+            <Route path="mentions" element={<NotifyMentionPage />} />
+          </Route>
+          <Route path="message" element={<MessageLayout />}>
+            <Route path=":id" element={<ChatToUserPage />} />
+          </Route>
+          <Route path="bookmark" element={<BookMarks />} /> {/*OPTION PAGE*/}
+          <Route path="profile" element={<ProfileLayout />}>
+            <Route index element={<PostsProfilePage />} />
+            <Route path="posts" element={<PostsProfilePage />} />
+            <Route path="replies" element={<ReplyPage />} />
+            <Route path="highlights" element={<HighlightsPage />} />
+            <Route path="articles" element={<ArticlePage />} />
+            <Route path="media" element={<MediaPage />} />
+            <Route path="*" element={<NotFound />} />
+          </Route>
           <Route path="*" element={<NotFound />} />
         </Route>
-        <Route path="*" element={<NotFound />} />
-      </Route>
+      )}
     </Routes>
   );
 };

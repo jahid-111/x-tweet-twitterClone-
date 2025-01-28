@@ -45,6 +45,7 @@ const FollowPage = () => {
           <div id="infinite-scroll-sentinel" className="h-3 bg-transparent" />
         </section>
 
+
         <aside className="hidden md:block sm:w-[40%] border-gray-700 relative px-1">
           <div className="sticky top-1">
             <SearchForm />

@@ -9,7 +9,7 @@ const AuthProvider = ({ children }) => {
   });
 
   const [authData, setAuthData] = useState([]);
-
+  // console.log(authData);
   useEffect(() => {
     const verifyToken = async () => {
       try {
