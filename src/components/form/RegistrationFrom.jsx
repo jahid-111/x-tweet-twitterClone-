@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { monthsForSignup } from "../../utils/userIconStaticData";
-import axios from "axios";
+import clientApi from "../../../services/axiosAPI_Config";
 
 function RegistrationForm() {
   const navigate = useNavigate();
@@ -34,17 +34,14 @@ function RegistrationForm() {
 
     try {
       setLoading(true);
-      const response = await axios.post(
-        "http://localhost:8000/api/auth/signup",
-        {
-          userName,
-          email,
-          password,
-          dateOfBirth,
-        }
-      );
+      const response = await clientApi.post("/auth/signup", {
+        userName,
+        email,
+        password,
+        dateOfBirth,
+      });
 
-      // console.log("Response:", response.data);
+      console.log("Response:", response.data);
       setErrorMessage("");
       form.reset();
       navigate("/auth/signin");
@@ -169,7 +166,7 @@ function RegistrationForm() {
 
         <div className=" mt-8">
           {errorMessage && (
-            <div className="text-red-500 text-center  font-semibold text-sm">
+            <div className="text-red-500 text-center pb-3  font-semibold text-sm">
               {errorMessage}
             </div>
           )}
