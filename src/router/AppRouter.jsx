@@ -22,7 +22,7 @@ import NotifyMentionPage from "../page/children-page/notification/NotifyMentionP
 // Pages - MESSAGE
 import MessageLayout from "../layout/childrenPageLayout/MessageLayout";
 import ChatToUserPage from "../page/children-page/message/ChatToUserPage";
-// Pages - PROFILE
+// Pages - PROFILE∆
 import ProfileLayout from "../layout/childrenPageLayout/ProfileLayout";
 import PostsProfilePage from "../page/children-page/profile/PostsProfilePage";
 import ReplyPage from "../page/children-page/profile/ReplyPage";
@@ -73,7 +73,7 @@ const AppRouter = () => {
             <Route path=":id" element={<ChatToUserPage />} />
           </Route>
           <Route path="bookmark" element={<BookMarks />} /> {/*OPTION PAGE*/}
-          <Route path="profile" element={<ProfileLayout />}>
+          <Route path="profile/:id" element={<ProfileLayout />}>
             <Route index element={<PostsProfilePage />} />
             <Route path="posts" element={<PostsProfilePage />} />
             <Route path="replies" element={<ReplyPage />} />

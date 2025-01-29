@@ -70,8 +70,8 @@ const FollowPage = () => {
                 Who to follow
               </h3>
               {isLoading && <Loading />}
-              {data.slice(0, 3).map((user, i) => (
-                <FollowCard key={i} user={user} auth={authData} />
+              {data.slice(0, 3).map((user) => (
+                <FollowCard key={user?._id} user={user} auth={authData} />
               ))}
             </div>
             <DeveloperIntro />

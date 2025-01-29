@@ -1,4 +1,4 @@
-import { Outlet } from "react-router-dom";
+import { Outlet, useParams } from "react-router-dom";
 import FollowCard from "../../components/SampleToLoad/FollowCard";
 import DeveloperIntro from "../../components/extra/DeveloperIntro";
 import TrendingCard from "../../components/SampleToLoad/TrendingCard";
@@ -8,32 +8,46 @@ import Subscription from "../../components/extra/Subscription";
 import ProfileIntro from "../../components/userComponents/ProfileIntro";
 import BackButtonRouter from "../../components/navigate/BackButtonRouter";
 import usePageDocTitle from "../../hooks/usePageDocTitle";
+import useAuth from "../../hooks/useAuth";
+import useGetFetchData from "../../hooks/useGetFetchData";
+import Loading from "../../components/fallback-components/Loading";
 
 const ProfileLayout = () => {
   usePageDocTitle("Twitter © || Profile-Mohd");
+  const { id } = useParams();
 
-  // Sample user data for FollowCard
-  const users = [
-    { name: "Mohd. Jahidul Islam", title: "Full-Stack Developer" },
-    { name: "Jane Doe", title: "Developer" },
-    { name: "John Smith", title: "Designer" },
-  ];
+  const { authData } = useAuth();
+  const authId = authData?.user?._id;
+
+  // ✅ Ensure that `profile` gets the correct id value
+  const profile = authId && id;
+  console.log(profile);
+
+  const { data, isLoading } = useGetFetchData(`/user/${profile}`);
+
+  console.log(data);
 
   return (
     <main className="flex w-full gap-4">
       <section className="w-full md:w-[60%] border-l border-r border-gray-700">
-        <div className="sticky top-0 flex border-gray-700 w-full bg-opacity-80 backdrop-blur-2xl">
-          <BackButtonRouter />
-          <h4 className="px-6 py-3 text-xl font-semibold">
-            Mohd. Jahidul Islam ( 5 Posts )
-          </h4>
-        </div>
-        <ProfileIntro />
-        <div className="sticky top-14 border-b border-gray-700 w-full bg-opacity-80 backdrop-blur-2xl">
-          <ProfileNavigation />
-        </div>
+        {isLoading ? (
+          <Loading />
+        ) : (
+          <>
+            <div className="sticky top-0 flex border-gray-700 w-full bg-opacity-80 backdrop-blur-2xl">
+              <BackButtonRouter />
+              <h4 className="px-6 py-3 text-xl font-semibold">
+                {data?.userName} ( {data?.tweet?.length} Posts )
+              </h4>
+            </div>
+            <ProfileIntro profile={data} />
+            <div className="sticky top-14 border-b border-gray-700 w-full bg-opacity-80 backdrop-blur-2xl">
+              <ProfileNavigation />
+            </div>
 
-        <Outlet />
+            <Outlet />
+          </>
+        )}
       </section>
 
       <aside className="hidden md:block sm:w-[40%] border-gray-700 relative px-1">
@@ -42,7 +56,6 @@ const ProfileLayout = () => {
         </div>
         <Subscription />
         <div className="sticky top-14">
-          {/* TRENDING Data Sample */}
           <div className="border border-gray-700 my-4 rounded-xl overflow-hidden">
             <p className="my-2 px-3 text-2xl font-semibold">
               What’s happening!
@@ -52,14 +65,10 @@ const ProfileLayout = () => {
             ))}
           </div>
 
-          {/* FOLLOWING Data Sample */}
           <div className="border border-gray-700 my-4 rounded-xl">
             <h3 className="text-2xl mt-3 font-semibold mb-2 px-3">
               Who to follow
             </h3>
-            {users.map((user, i) => (
-              <FollowCard key={i} id={i} user={user} />
-            ))}
           </div>
           <DeveloperIntro />
         </div>

@@ -7,10 +7,14 @@ import useScrollToVisible from "../../hooks/useScrollToVisible";
 import { useState } from "react";
 import Modal from "../fallback-components/Modal";
 import PostTweet from "../tweet-post/PostTweet";
+import useAuth from "../../hooks/useAuth";
 
 const NavRouteList = () => {
   const { isVisible } = useScrollToVisible();
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const { authData } = useAuth();
+  // console.log(authData?.user?._id)
 
   function handleOpenModal() {
     setIsModalOpen((prv) => !prv);
@@ -33,7 +37,11 @@ const NavRouteList = () => {
         >
           <Link
             aria-label={item.label}
-            to={item.label === "profile" ? "/profile" : item.href}
+            to={
+              item.label === "Profile"
+                ? `/profile/${authData?.user?._id}`
+                : item.href
+            } // Dynamic profile link
             className="hover:bg-toggle xl:w-[13rem] rounded-full flex gap-2 items-center w-full"
           >
             <item.icon className="h-11 w-11 p-2 rounded-full" />
@@ -41,7 +49,6 @@ const NavRouteList = () => {
           </Link>
         </li>
       ))}
-
       {/* Bottom Section */}
       <div className="absolute bottom-8">
         <div className="mt-4 w-full flex flex-col items-center gap-4 pt-4">

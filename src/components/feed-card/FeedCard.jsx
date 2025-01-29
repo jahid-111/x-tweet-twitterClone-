@@ -44,7 +44,7 @@ const FeedCard = ({ tweet, tweetPost, singleTweet, auth }) => {
       onMouseEnter={() => setOptions({ ...{ dots: true } })}
       onMouseLeave={() => setOptions({ ...{ dots: false } })}
       onClick={navigateToStatusPage} // Navigate to tweet page when the card is clicked
-      className="hover:bg-linkColor cursor-pointer flex gap-2 w-full p-1 border-b border-gray-600 pt-2 relative"
+      className="hover:bg-linkColor cursor-pointer flex gap-2 w-full p-1 border-b border-gray-600 pt-2"
     >
       {/* User Profile Image */}
       <div className="w-1/12">

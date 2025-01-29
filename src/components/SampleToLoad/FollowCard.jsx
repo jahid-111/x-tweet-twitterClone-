@@ -9,7 +9,7 @@ const FollowCard = ({ classCustom, user, id, auth }) => {
 
   // Track follow state and follower count
   const [follow, setFollow] = useState({
-    isFollowing: user?.followers.includes(auth?.user._id), // Is this user followed?
+    isFollowing: user?.followers.includes(auth?.user?._id), // Is this user followed?
     followCount: user?.followers.length, // Number of followers
   });
 

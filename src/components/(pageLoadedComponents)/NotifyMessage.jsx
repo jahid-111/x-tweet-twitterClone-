@@ -9,7 +9,7 @@ const NotifyMessage = () => {
     >
       <ImageSmall />
       <p>
-        <strong>Jahid vai </strong> Following you{" "}
+        <strong>Mohd.Jahid </strong> Following you{" "}
         <time dateTime="2024-12-10T12:10:00">12:10</time>
       </p>
     </Link>

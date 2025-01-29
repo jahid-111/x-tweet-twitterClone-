@@ -4,14 +4,14 @@ import DeveloperIntro from "../../components/extra/DeveloperIntro";
 import NavNotification from "../../components/navigate/NavNotification";
 import TrendingCard from "../../components/SampleToLoad/TrendingCard";
 import usePageDocTitle from "../../hooks/usePageDocTitle";
+import useGetFetchData from "../../hooks/useGetFetchData";
+import Loading from "../../components/fallback-components/Loading";
+import useAuth from "../../hooks/useAuth";
 
 const NotificationLayout = () => {
   usePageDocTitle("Twitter © || Notification");
-  const users = [
-    { name: "Mohd. Jahidul Islam", title: "Full-Stack Developer" },
-    { name: "Jane Doe", title: "Developer" },
-    { name: "John Smith", title: "Designer" },
-  ];
+  const { authData } = useAuth();
+  const { data, isLoading } = useGetFetchData("user");
 
   return (
     <main className="flex w-full gap-4">
@@ -40,8 +40,10 @@ const NotificationLayout = () => {
             <h3 className="text-2xl mt-3 font-semibold mb-2 px-3">
               Who to follow
             </h3>
-            {users.map((user, i) => (
-              <FollowCard key={i} id={i} user={user} />
+            {isLoading && <Loading />}
+            {data.slice(0, 3).map((user) => (
+              // console.log(user._id),
+              <FollowCard key={user?._id} user={user} auth={authData} />
             ))}
           </div>
           <DeveloperIntro />
