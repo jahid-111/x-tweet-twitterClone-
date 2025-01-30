@@ -11,7 +11,7 @@ import TweetCustomize from "./TweetCustomize";
 import { PiDotsThreeOutlineFill } from "react-icons/pi";
 
 const FeedCard = ({ tweet, tweetPost, singleTweet, auth }) => {
-  // console.log(auth?.user._id)
+  // console.log(auth.userName)
   // console.log(tweet);
   const [isOpenModal, setIsOpenModal] = useState(false);
   const [options, setOptions] = useState({ dots: false, options: false });
@@ -38,13 +38,13 @@ const FeedCard = ({ tweet, tweetPost, singleTweet, auth }) => {
   // console.log(tweetPost?.author._id);
 
   const isAuthor = tweetPost?.author?._id === auth?.user?._id;
-  // console.log(isAuthor);
+
   return (
     <div
       onMouseEnter={() => setOptions({ ...{ dots: true } })}
       onMouseLeave={() => setOptions({ ...{ dots: false } })}
       onClick={navigateToStatusPage} // Navigate to tweet page when the card is clicked
-      className="hover:bg-linkColor cursor-pointer flex gap-2 w-full p-1 border-b border-gray-600 pt-2"
+      className="hover:bg-linkColor cursor-pointer flex gap-2 w-full p-1 border-b border-gray-600 pt-2 "
     >
       {/* User Profile Image */}
       <div className="w-1/12">
@@ -54,7 +54,7 @@ const FeedCard = ({ tweet, tweetPost, singleTweet, auth }) => {
       {/* Tweet Content */}
       <div className="w-11/12">
         {/* Tweet Author Information */}
-        <FeedAuthor author={tweetPost?.author} />
+        <FeedAuthor author={tweetPost?.author && auth} />
 
         {/* Tweet Main Content */}
         <button onClick={handleModal}>

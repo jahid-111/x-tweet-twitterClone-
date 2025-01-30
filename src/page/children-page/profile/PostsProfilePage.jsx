@@ -1,10 +1,14 @@
 import FeedCard from "../../../components/feed-card/FeedCard";
-
+import { useOutletContext } from "react-router-dom";
 const PostsProfilePage = () => {
+  const userData = useOutletContext();
+  const { tweets, user } = userData;
+  // console.log(tweets);
+
   return (
     <div>
-      {[...Array(10)].map((_, i) => (
-        <FeedCard key={i} />
+      {tweets?.map((tweet) => (
+        <FeedCard key={tweet._id} tweetPost={tweet} auth={user} />
       ))}
     </div>
   );

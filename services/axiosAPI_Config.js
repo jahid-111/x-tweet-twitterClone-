@@ -2,7 +2,8 @@ import axios from "axios";
 
 // Create Axios instance
 const clientApi = axios.create({
-  baseURL: import.meta.env.VITE_PUBLIC_URL, // Base URL for your API
+  // baseURL: import.meta.env.VITE_PUBLIC_URL, // Base URL for your API
+  baseURL: "http://localhost:8000/api", // Base URL for your API
   timeout: 5000, // Optional: Set timeout for requests
 });
 

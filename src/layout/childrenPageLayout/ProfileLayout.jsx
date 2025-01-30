@@ -21,11 +21,12 @@ const ProfileLayout = () => {
 
   // ✅ Ensure that `profile` gets the correct id value
   const profile = authId && id;
-  console.log(profile);
+  // console.log(profile);
 
   const { data, isLoading } = useGetFetchData(`/user/${profile}`);
 
-  console.log(data);
+  const { tweets, user } = data;
+  // console.log(tweets?.length);
 
   return (
     <main className="flex w-full gap-4">
@@ -37,15 +38,16 @@ const ProfileLayout = () => {
             <div className="sticky top-0 flex border-gray-700 w-full bg-opacity-80 backdrop-blur-2xl">
               <BackButtonRouter />
               <h4 className="px-6 py-3 text-xl font-semibold">
-                {data?.userName} ( {data?.tweet?.length} Posts )
+                {user?.userName} ({tweets?.length} Posts )
               </h4>
             </div>
-            <ProfileIntro profile={data} />
+            <ProfileIntro profile={user} />
             <div className="sticky top-14 border-b border-gray-700 w-full bg-opacity-80 backdrop-blur-2xl">
-              <ProfileNavigation />
+              <ProfileNavigation id={profile} />
             </div>
 
-            <Outlet />
+            {/* Pass data to the Outlet using the context prop */}
+            <Outlet context={data} />
           </>
         )}
       </section>
