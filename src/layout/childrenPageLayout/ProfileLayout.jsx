@@ -26,7 +26,7 @@ const ProfileLayout = () => {
   const { data, isLoading } = useGetFetchData(`/user/${profile}`);
 
   const { tweets, user } = data;
-  // console.log(tweets?.length);
+  // console.log(data.tweets);
 
   return (
     <main className="flex w-full gap-4">
@@ -47,7 +47,7 @@ const ProfileLayout = () => {
             </div>
 
             {/* Pass data to the Outlet using the context prop */}
-            <Outlet context={data} />
+            <Outlet context={data?.tweets} />
           </>
         )}
       </section>

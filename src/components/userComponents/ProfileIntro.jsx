@@ -1,5 +1,5 @@
 import { ImCalendar } from "react-icons/im";
-import { getTime } from "../../utils/timeFromate";
+import { getTime } from "../../utils/timeFormate";
 
 const ProfileIntro = ({ profile }) => {
   // console.log(profile?.followers?.length);

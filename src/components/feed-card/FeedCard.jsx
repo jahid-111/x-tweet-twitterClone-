@@ -11,31 +11,24 @@ import TweetCustomize from "./TweetCustomize";
 import { PiDotsThreeOutlineFill } from "react-icons/pi";
 
 const FeedCard = ({ tweet, tweetPost, singleTweet, auth }) => {
-  // console.log(auth.userName)
-  // console.log(tweet);
+  // console.log(tweetPost?.author?.userName);
+
   const [isOpenModal, setIsOpenModal] = useState(false);
   const [options, setOptions] = useState({ dots: false, options: false });
   const navigate = useNavigate();
 
-  // console.log(tweetPost);
-
   const dataTweet = tweet ?? singleTweet;
   const tweetId = dataTweet?._id;
 
-  // Handle Modal (Prevent event propagation on button click)
   const handleModal = (e) => {
     e.stopPropagation(); // Prevent event bubbling for modal open
     setIsOpenModal((prev) => !prev);
   };
-
-  // Navigate to the tweet's page only when the modal is closed
   const navigateToStatusPage = () => {
     if (!isOpenModal) {
       navigate(`/status/${tweetId}`);
     }
   };
-
-  // console.log(tweetPost?.author._id);
 
   const isAuthor = tweetPost?.author?._id === auth?.user?._id;
 
@@ -54,12 +47,10 @@ const FeedCard = ({ tweet, tweetPost, singleTweet, auth }) => {
       {/* Tweet Content */}
       <div className="w-11/12">
         {/* Tweet Author Information */}
-        <FeedAuthor author={tweetPost?.author && auth} />
+        <FeedAuthor info={tweetPost} />
 
         {/* Tweet Main Content */}
         <button onClick={handleModal}>
-          {" "}
-          {/* Toggling modal on click */}
           <FeedImages tweet={tweetPost} images={dataTweet?.images} />
         </button>
 

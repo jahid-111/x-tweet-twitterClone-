@@ -23,7 +23,7 @@ const HomePage = () => {
   // console.log("all tweet", user.isLoading);
 
   const { authData } = useAuth();
-  // console.log(authData);
+  // console.log(data[0]);
 
   const { isVisible } = useScrollToVisible();
 
