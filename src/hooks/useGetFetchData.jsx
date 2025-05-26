@@ -7,23 +7,25 @@ export default function useGetFetchData(URL) {
   const [data, setData] = useState([]);
 
   useEffect(() => {
+    if (!URL || URL.includes("undefined")) return; // Skip if URL is invalid
+
     async function fetchData() {
       setIsLoading(true); // Start loading
       setIsError(false); // Reset error state
 
       try {
-        const response = await clientApi.get(URL); // Replace with your endpoint
-        // console.log(response);
+        const response = await clientApi.get(URL);
         setData(response.data); // Update data state
       } catch (error) {
         setIsError(true); // Handle errors
-        console.error("Error fetching data:", error);
+        console.error("Error fetching data:", error); // Optional for debugging
       } finally {
         setIsLoading(false); // End loading
       }
     }
 
     fetchData(); // Call the fetch function
-  }, [URL]); // Empty dependency array to run only once on mount
+  }, [URL]);
+
   return { isLoading, isError, data };
 }
