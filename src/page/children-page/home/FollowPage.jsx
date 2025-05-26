@@ -9,18 +9,21 @@ import useScrollToVisible from "../../../hooks/useScrollToVisible";
 import usePageDocTitle from "../../../hooks/usePageDocTitle";
 import useGetFetchData from "../../../hooks/useGetFetchData";
 import Loading from "../../../components/fallback-components/Loading";
+import useGetFetchUser from "../../../hooks/API/useGetFetchUser";
 
 const FollowPage = () => {
   usePageDocTitle("Twitter © || Follow-page");
 
-  const { authData } = useAuth();
-  const { data, isLoading, isError } = useGetFetchData("user");
   const { isVisible } = useScrollToVisible();
 
-  // console.log(authData)
-  if (isError) {
+  const { authData } = useAuth();
+  const { users, isLoadingUser, isErrorUser } = useGetFetchUser("user");
+
+  if (isErrorUser) {
     return;
   }
+
+  // console.log(authData);
 
   return (
     <div className="w-full flex mx-auto">
@@ -38,11 +41,11 @@ const FollowPage = () => {
             <NavigationHome />
           </div>
 
-          {isLoading && <Loading />}
-          {data.map((user, index) => (
+          {isLoadingUser && <Loading />}
+          {users.map((user, index) => (
             <FollowCard key={index} user={user} auth={authData} />
           ))}
-          {isError && <div>Error fetching data. Please try again later.</div>}
+          {/* {isError && <div>Error fetching data. Please try again later.</div>} */}
           {/* Infinite Scroll Sentinel */}
           <div id="infinite-scroll-sentinel" className="h-3 bg-transparent" />
         </section>
@@ -69,8 +72,8 @@ const FollowPage = () => {
               <h3 className="text-2xl mt-3 font-semibold mb-2 px-3">
                 Who to follow
               </h3>
-              {isLoading && <Loading />}
-              {data.slice(0, 3).map((user) => (
+              {isLoadingUser && <Loading />}
+              {users.slice(0, 3).map((user) => (
                 <FollowCard key={user?._id} user={user} auth={authData} />
               ))}
             </div>

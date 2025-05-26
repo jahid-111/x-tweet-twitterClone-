@@ -11,22 +11,24 @@ import usePageDocTitle from "../hooks/usePageDocTitle";
 
 import { Link } from "react-router-dom";
 
-import useGetFetchData from "../hooks/useGetFetchData";
 import useAuth from "../hooks/useAuth";
 import Loading from "../components/fallback-components/Loading";
+import useGetFetchTweet from "../hooks/API/useGetFetchTweet";
+import useGetFetchUser from "../hooks/API/useGetFetchUser";
 
 const HomePage = () => {
   usePageDocTitle("Twitter © || Home");
 
-  const { data, isLoading } = useGetFetchData("tweet");
-  const user = useGetFetchData("user");
-  // console.log("all tweet", user.isLoading);
-
-  const { authData } = useAuth();
-  // console.log(data[0]);
-
   const { isVisible } = useScrollToVisible();
 
+  const { authData } = useAuth();
+
+  const { tweets, isLoadingTweets } = useGetFetchTweet("tweet");
+  const { users, isLoadingUser } = useGetFetchUser("user");
+
+  // console.log(data[0]);
+
+  // console.log("all tweet", users);
   return (
     <div className="w-full flex mx-auto">
       {/* Sticky Sidebar Section */}
@@ -46,10 +48,10 @@ const HomePage = () => {
           {/* Main Content */}
           <PostTweet />
 
-          {isLoading ? (
+          {isLoadingTweets ? (
             <Loading />
           ) : (
-            data.map((tweetPost) => (
+            tweets.map((tweetPost) => (
               <FeedCard
                 key={tweetPost._id}
                 tweetPost={tweetPost}
@@ -81,10 +83,10 @@ const HomePage = () => {
               <h3 className="text-2xl mt-3 font-semibold mb-2 px-3">
                 Who to follow
               </h3>
-              {user.isLoading ? (
+              {isLoadingUser ? (
                 <Loading />
               ) : (
-                user.data
+                users
                   .slice(0, 3)
                   .slice(0, 4)
                   ?.map((user, i) => <FollowCard key={i} id={i} user={user} />)

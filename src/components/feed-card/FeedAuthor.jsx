@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { getTime } from "../../utils/timeFormate";
+import { getTime } from "../../utils/timeFromate";
 
 const FeedAuthor = ({ author, info }) => {
   // console.log("author FeedUpdate", info.author);
