@@ -3,7 +3,7 @@ import { useOutletContext } from "react-router-dom";
 const PostsProfilePage = () => {
   const userData = useOutletContext();
   const tweets = userData;
-  console.log(tweets);
+  // console.log(tweets);
 
   return (
     <div>

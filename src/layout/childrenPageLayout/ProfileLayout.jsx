@@ -26,8 +26,8 @@ const ProfileLayout = () => {
   const { data, isLoading } = useGetFetchData(`/user/${profile}`);
 
   const { tweets, user } = data;
-  // console.log(data.tweets);
-
+  // console.log(  tweets || null);
+  // console.log(data);
   return (
     <main className="flex w-full gap-4">
       <section className="w-full md:w-[60%] border-l border-r border-gray-700">

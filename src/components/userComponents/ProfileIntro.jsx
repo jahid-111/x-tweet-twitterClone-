@@ -2,7 +2,7 @@ import { ImCalendar } from "react-icons/im";
 import { getTime } from "../../utils/timeFromate";
 
 const ProfileIntro = ({ profile }) => {
-  // console.log(profile?.followers?.length);
+  // console.log(profile);
 
   return (
     <div className="mx-auto mb-4">
